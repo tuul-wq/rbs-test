@@ -1,10 +1,12 @@
 import React from 'react';
+import BaseButton from '../../../components/ui/base-button/base-button';
 import './actions.scss';
 
-function Actions({ children }) {
+function Actions() {
   return (
     <div className="footer">
-      {children}
+      <BaseButton title="Заказ (списание)" onClicked={() => console.log('aaa')} />
+      <BaseButton title="Заказ (предавторизация)" onClicked={() => console.log('bbb')} />
     </div>
   )
 }

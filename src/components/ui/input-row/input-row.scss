@@ -9,19 +9,24 @@
   }
 
   .input-row__label {
+    width: 50%;
     font-size: 11pt;
 
     @media screen and (max-width: 480px) {
       margin-bottom: 10px;
+      width: auto;
     }
   }
 
   .input-row__input {
     width: 100%;
     max-width: 50%;
+    margin-left: 10px;
 
     @media screen and (max-width: 480px) {
       width: 100%;
+      margin-left: 0;
+      max-width: unset;
     }
   }
 }

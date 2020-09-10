@@ -2,4 +2,18 @@
   .select-row, .input-row:not(:last-of-type) {
     margin-bottom: 15px;
   }
+
+  & > *:not(:last-child) {
+    margin-bottom: 25px;
+  }
+
+  & .btn {
+    width: 50%;
+    float: right;
+    margin-top: 15px;
+
+    @media screen and (max-width: 480px) {
+      width: 100%;
+    }
+  }
 }

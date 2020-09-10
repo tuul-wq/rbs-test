@@ -1,6 +1,7 @@
 
 .btn {
   cursor: pointer;
+  font-size: 11pt;
   font-weight: 500;
   color: white;
 	background-color: transparent;
@@ -18,5 +19,10 @@
   &:active {
     border-color: darken(royalblue, 10%);
     background-color: darken(royalblue, 10%);
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: 15px;
+    padding: 7px;
   }
 }
