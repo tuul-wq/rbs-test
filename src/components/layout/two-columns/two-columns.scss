@@ -1,0 +1,14 @@
+.two-columns {
+  display: flex;
+  flex-wrap: wrap;
+
+  aside {
+    flex-grow: 1;
+    width: 300px;
+    padding: 15px;
+
+    & > *:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+}

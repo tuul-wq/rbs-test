@@ -1,10 +1,10 @@
 import React from 'react';
-import './button.scss';
+import './base-button.scss';
 
-function Button({ title = 'Button', onClicked }) {
+function BaseButton({ title = 'Button', onClicked }) {
   return (
     <button type="button" className="btn" onClick={onClicked}>{title}</button>
   )
 }
 
-export default Button;
+export default BaseButton;

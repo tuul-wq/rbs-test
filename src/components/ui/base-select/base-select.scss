@@ -1,0 +1,9 @@
+.select-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .select-row__label {
+    font-size: 11pt;
+  }
+}

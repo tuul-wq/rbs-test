@@ -1,0 +1,22 @@
+
+.btn {
+  cursor: pointer;
+  font-weight: 500;
+  color: white;
+	background-color: transparent;
+  border: 3px solid royalblue;
+  background-color: royalblue;
+	border-radius: 5px;
+  padding: 7px 15px;
+  transition: all .2s ease-out;
+
+  &:hover {
+    border-color: lighten(royalblue, 5%);
+    background-color: lighten(royalblue, 5%);
+  }
+
+  &:active {
+    border-color: darken(royalblue, 10%);
+    background-color: darken(royalblue, 10%);
+  }
+}
