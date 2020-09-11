@@ -1,9 +1,11 @@
 import React from 'react';
 import './base-button.scss';
 
-function BaseButton({ title = 'Button', onClicked }) {
+function BaseButton({ title, disabled, onClicked }) {
   return (
-    <button type="button" className="btn" onClick={onClicked}>{title}</button>
+    <button disabled={disabled} type="button" className="btn" onClick={onClicked}>
+      {title}
+    </button>
   )
 }
 

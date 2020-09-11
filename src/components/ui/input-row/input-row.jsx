@@ -2,6 +2,10 @@ import React from 'react';
 import './input-row.scss';
 
 function InputRow({ label, idFor, value, onInputChange }) {
+  const inputChange = (event) => {
+    onInputChange(event.target.value);
+  }
+
   return (
     <div className="input-row">
       <label htmlFor={idFor} className="input-row__label">{label}</label>
@@ -10,7 +14,7 @@ function InputRow({ label, idFor, value, onInputChange }) {
         className="input-row__input"
         type="text"
         value={value}
-        onChange={onInputChange}
+        onChange={inputChange}
       />
     </div>
   )

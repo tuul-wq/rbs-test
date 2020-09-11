@@ -7,13 +7,26 @@
     margin-bottom: 25px;
   }
 
-  & .btn {
-    width: 50%;
-    float: right;
-    margin-top: 15px;
+  .action-group {
+    display: flex;
+    justify-content: space-between;
 
-    @media screen and (max-width: 480px) {
-      width: 100%;
+    .btn {
+      flex: 1;
+
+      &:not(:only-child):first-of-type {
+        margin-right: 15px;
+      }
     }
   }
+  
+  // & .btn {
+  //   width: 100%;
+  //   // float: right;
+  //   margin-top: 15px;
+
+    // @media screen and (max-width: 480px) {
+    //   width: 100%;
+    // }
+  // }
 }

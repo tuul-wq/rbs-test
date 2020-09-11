@@ -1,26 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Group from '../../../components/layout/group/group';
 import InputRow from '../../../components/ui/input-row/input-row';
+import { updateProfileParam } from '../../../store/actions';
 import './right-column.scss';
 
 function RightColumn({ fields, onInputChange }) {
-  function inputChange(event, label) {
-    return onInputChange(event.target.value, label);
+  const inputChange = (label) => (value) => {
+    onInputChange(label, value);
   }
 
   return (
     <div className="right-col">
       <Group legend="Параметры заказа">
         {
-          fields.map((field, index) =>
+          Object.entries(fields).map(([key, object], index) =>
             <InputRow
-              key={field.idFor + index}
-              label={field.label}
-              idFor={field.idFor}
-              value={field.value}
-              onInputChange={inputChange(field.label)}
+              key={key + index}
+              label={object.label}
+              idFor={key}
+              value={object.value}
+              onInputChange={inputChange(key)}
             />
           )
         }
@@ -29,67 +31,26 @@ function RightColumn({ fields, onInputChange }) {
   )
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ currentProfileIndex, profiles }) {
+  const current = profiles.find((_, index) => index === currentProfileIndex);
   return {
-    fields: [
-      { label: 'Валюта', idFor: 'currency', value: state.currency },
-      { label: 'Номер заказа в системе магазина', idFor: 'numberInSystem', value: state.numberInSystem },
-      { label: 'Сумма заказа (в копейках)', idFor: 'pennyOrderSum', value: state.pennyOrderSum },
-      { label: 'Язык пользователя', idFor: 'language', value: state.language },
-      { label: 'Адрес возврата', idFor: 'returnAddress', value: state.returnAddress },
-      { label: 'Описание заказа', idFor: 'orderDescription', value: state.orderDescription },
-      { label: 'ID клиента', idFor: 'clientId', value: state.clientId },
-      { label: 'ID связки', idFor: 'bondId', value: state.bondId }
-    ]
+    fields: {
+      currency: { label: 'Валюта', value: current.currency },
+      numberInSystem: { label: 'Номер заказа в системе магазина', value: current.numberInSystem },
+      pennyOrderSum: { label: 'Сумма заказа (в копейках)', value: current.pennyOrderSum },
+      language: { label: 'Язык пользователя', value: current.language },
+      returnAddress: { label: 'Адрес возврата', value: current.returnAddress },
+      orderDescription: { label: 'Описание заказа', value: current.orderDescription },
+      clientId: { label: 'ID клиента', value: current.clientId },
+      bondId: { label: 'ID связки', value: current.bondId }
+    }
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    onInputChange: dispatch(updateProfileParam)
-  }
+  return bindActionCreators({
+    onInputChange: updateProfileParam
+  }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RightColumn);
-
-
-{/* <InputRow
-  label="Валюта"
-  idFor="currency"
-  onInputChange={(e) => console.log('a')}
-/>
-<InputRow
-  label="Номер заказа в системе магазина"
-  idFor="numberInSystem"
-  onInputChange={(e) => console.log('a')}
-/>
-<InputRow
-  label="Сумма заказа (в копейках)"
-  idFor="pennyOrderSum"
-  onInputChange={(e) => console.log('a')}
-/>
-<InputRow
-  label="Язык пользователя"
-  idFor="language"
-  onInputChange={(e) => console.log('a')}
-/>
-<InputRow
-  label="Адрес возврата"
-  idFor="returnAddress"
-  onInputChange={(e) => console.log('a')}
-/>
-<InputRow
-  label="Описание заказа"
-  idFor="orderDescription"
-  onInputChange={(e) => console.log('a')}
-/>
-<InputRow
-  label="ID клиента"
-  idFor="clientId"
-  onInputChange={(e) => console.log('a')}
-/>
-<InputRow
-  label="ID связки"
-  idFor="bondId"
-  onInputChange={(e) => console.log('a')}
-/> */}

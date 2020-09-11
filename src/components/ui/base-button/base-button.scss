@@ -9,7 +9,7 @@
   background-color: royalblue;
 	border-radius: 5px;
   padding: 7px 15px;
-  transition: all .2s ease-out;
+  transition: background-color .2s ease-out, border .2s ease-out;
 
   &:hover {
     border-color: lighten(royalblue, 5%);
@@ -19,6 +19,12 @@
   &:active {
     border-color: darken(royalblue, 10%);
     background-color: darken(royalblue, 10%);
+  }
+
+  &:disabled {
+    cursor: default;
+    border-color: #a1b9ff;
+    background-color: #8fabff;
   }
 
   @media screen and (max-width: 480px) {
