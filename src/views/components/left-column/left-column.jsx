@@ -11,7 +11,7 @@ function LeftColumn() {
       <Group legend="Сохраненные параметры">
         <BaseSelect
           label="Выберите профиль"
-          idFor="profileName"
+          idFor="selectProfile"
           onInputChange={(e) => console.log('aaa')}
         />
         <InputRow
