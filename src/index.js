@@ -3,14 +3,20 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import App from './components/common/app/app';
+import RbsService from './services/rbs.service';
+import { RbsServiceContext } from './context/RbsServiceContext';
 import store from './store/store';
 import './index.scss';
 // import * as serviceWorker from './serviceWorker';
 
+const service = new RbsService();
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RbsServiceContext.Provider value={service}>
+        <App />
+      </RbsServiceContext.Provider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
