@@ -1,11 +1,11 @@
+import { nanoid } from 'nanoid';
+
 import {
     PARAM_UPDATED, PROFILE_ADDED, PROFILE_SELECTED, PROFILES_LOADED,
     PROFILE_UPDATED, PROFILE_REMOVED, PROFILE_REMOVED_ALL
   } from '../actions/storage';
 
 function updateStorage(state, { type, payload }) {
-  if (state?.storage === undefined) return initialStore;
-
   const { storage } = state;
   const { selectedIndex, profiles } = storage;
 
@@ -16,25 +16,27 @@ function updateStorage(state, { type, payload }) {
       if (!isTouched) return storage;
 
       return {
-          selectedIndex: 0,
-          selectedName: EMPTY_PROFILE.profileName,
-          profiles: [{ ...EMPTY_PROFILE }].concat(profiles)
+          selectedIndex: 1,
+          selectedName: profileName,
+          profiles: [payload.cleanProfile].concat(profiles)
       }
     case PROFILE_SELECTED:
       return {
           ...(payload.profileIndex === 0
-            ? { profiles: [{ ...EMPTY_PROFILE }].concat(profiles.slice(1)) }
+            ? { profiles: [payload.cleanProfile].concat(profiles.slice(1)) }
             : storage
           ),
           selectedName: profiles[payload.profileIndex].profileName,
           selectedIndex: payload.profileIndex,
       }
     case PROFILE_REMOVED:
+      const { profileIndex } = payload;
+      const newProfiles = profiles.filter((_, index) => index !== profileIndex);
+      const newIndex = newProfiles.length - 1 >= profileIndex ? profileIndex : profileIndex - 1;
       return {
-          ...storage,
-          profiles: profiles.filter((_, index) => index !== payload.profileIndex),
-          selectedIndex: 0,
-          selectedName: profiles[0].profileName
+          profiles: newProfiles,
+          selectedIndex: newIndex,
+          selectedName: newProfiles[newIndex].profileName
       };
     case PARAM_UPDATED:
       const currentIndex = profiles.findIndex((_, index) => index === selectedIndex);
@@ -48,14 +50,14 @@ function updateStorage(state, { type, payload }) {
     case PROFILE_REMOVED_ALL:
       return {
           selectedIndex: 0,
-          selectedName: EMPTY_PROFILE.profileName,
-          profiles: [{ ...EMPTY_PROFILE }]
+          selectedName: payload.cleanProfile.profileName,
+          profiles: [payload.cleanProfile]
       };
     case PROFILES_LOADED:
       return {
           selectedIndex: 0,
-          selectedName: EMPTY_PROFILE.profileName,
-          profiles: [{ ...EMPTY_PROFILE }].concat(payload.profiles)
+          selectedName: payload.cleanProfile.profileName,
+          profiles: [payload.cleanProfile].concat(payload.profiles)
       };
     case PROFILE_UPDATED:
     default:
@@ -63,7 +65,8 @@ function updateStorage(state, { type, payload }) {
   }
 }
 
-const EMPTY_PROFILE = {
+export const EMPTY_PROFILE = () => ({
+  profileId: nanoid(),
   profileName: 'New Profile',
   systemAddress: '',
   userName: '',
@@ -76,28 +79,12 @@ const EMPTY_PROFILE = {
   orderDescription: '',
   clientId: '',
   bondId: ''
-};
+});
 
-const initialStore = {
+export const storageInitialStore = {
   selectedName: '',
   selectedIndex: 0,
-  profiles: [
-  { ...EMPTY_PROFILE },
-  // {
-  //   profileName: 'profile_1',
-  //   systemAddress: '/payment/', // not saving
-  //   userName: 'test',
-  //   password: 'test_password',
-  //   currency: '643',
-  //   numberInSystem: '202081022446736',
-  //   orderSum: '100',
-  //   language: 'ru',
-  //   returnAddress: '../merchants/test/finish.html',
-  //   orderDescription: '',
-  //   clientId: '',
-  //   bondId: ''
-  // }
-  ]
+  profiles: [EMPTY_PROFILE()]
 };
 
 export default updateStorage;

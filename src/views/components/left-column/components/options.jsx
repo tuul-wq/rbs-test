@@ -2,9 +2,9 @@ import React from 'react';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 
-import GroupRows from '../group-rows/group-rows';
-import withService from '../../../components/hoc/withService';
-import { updateProfileParam } from '../../../store/actions/storage';
+import GroupRows from '../../group-rows/group-rows';
+import withService from '../../../../components/hoc/withService';
+import { updateProfileParam } from '../../../../store/actions/storage';
 
 function Options(props) {
   return (

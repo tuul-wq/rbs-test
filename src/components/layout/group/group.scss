@@ -6,4 +6,10 @@
   .group__legend {
     font-family: 'Capture it', arial;
   }
+
+  .group__content {
+    & > *:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
 }

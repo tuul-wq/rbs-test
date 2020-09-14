@@ -1,35 +1,41 @@
 import APIservice from './api.service';
+import LocalService from './local.service';
 
 class RbsService extends APIservice {
   constructor() {
     super('/sb-mp3back/');
+    this._ls = new LocalService();
   }
 
   async getAllProfiles() {
-    const res = await this._post(ENDPOINTS.GET_ALL);
-    console.log('getAllProfiles -> res', res);
+    let dbProfiles = null;
+    try {
+      const res = await this._post(ENDPOINTS.GET_ALL);
+      const match = res.server_storage.find(ss => ss.key === GATEWAY_PROFILES);
+      dbProfiles = JSON.parse(match.value.replaceAll('&quot;', '"')) || [];
+    } catch (error) {
+      if (error !== 500) return;
+      dbProfiles = this._ls.getAllProfiles();
+    }
+    return this._ls.mergeStorages(dbProfiles);
   }
 
-  // async getSingleProfile() {
-  //   const res = await this._getResource(ENDPOINTS.GET_SINGLE);
-  //   console.log('getSingleProfile -> res', res);
-  // }
-
-  // async removeAllProfiles() {
-  //   const res = await this._getResource(ENDPOINTS.REMOVE_ALL);
-  //   console.log('removeAllProfiles -> res', res);
-  // }
-
   async removeSingleProfile() {
-    const res = await this._post(ENDPOINTS.REMOVE_SINGLE);
-    console.log('removeSingleProfile -> res', res);
+    try {
+      await this._post(ENDPOINTS.REMOVE_SINGLE);
+    } catch (error) {
+      this._ls.setStorageValue();
+    }
   }
 
   async updateProfile(profiles) {
-    const res = await this._post(ENDPOINTS.UPDATE, {
+    await this._post(ENDPOINTS.UPDATE, {
       body: JSON.stringify({ key: GATEWAY_PROFILES, value: JSON.stringify(profiles) })
     });
-    console.log('updateProfile -> res', res);
+  }
+
+  syncStorages(dbProfiles) {
+    this._ls.syncStorages(dbProfiles);
   }
 
   async login() {
@@ -49,6 +55,16 @@ class RbsService extends APIservice {
   async logout() {
     await this._post(ENDPOINTS.LOGOUT);
   }
+
+
+  // TODO: maybe in future
+  // async getSingleProfile() {
+  //   const res = await this._getResource(ENDPOINTS.GET_SINGLE);
+  // }
+
+  // async removeAllProfiles() {
+  //   const res = await this._getResource(ENDPOINTS.REMOVE_ALL);
+  // }
 }
 
 const GATEWAY_PROFILES = 'GATEWAY_PROFILES';

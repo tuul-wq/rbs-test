@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Options from './options';
-import ProfileSelect from './profile-select';
+import Options from './components/options';
+import ProfileSelect from './components/profile-select-container';
 import './left-column.scss';
 
 function LeftColumn() {

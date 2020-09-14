@@ -4,17 +4,24 @@ import { bindActionCreators, compose } from 'redux';
 
 import withService from '../../../components/hoc/withService';
 import { loginUser, logoutUser } from '../../../store/actions/user';
+import './auth.scss';
 
 function Auth({ isLoggedIn, login, email, onLogin, onLogout }) {
   const displayName = isLoggedIn ? `${login} (${email})` : 'Offline';
 
   const actions = isLoggedIn
-    ? <button type="button" onClick={onLogout}>Выйти</button>
-    : <button type="button" onClick={onLogin}>Войти</button>;
+    ? <button type="button" onClick={onLogout}>
+        <i className="fas fa-sign-out-alt" />
+        <span className="auth__btn-title">Выйти</span>
+      </button>
+    : <button type="button" onClick={onLogin}>
+        <i className="fas fa-sign-in-alt" />
+        <span className="auth__btn-title">Войти</span>
+      </button>;
 
   return (
     <div className="auth">
-      <span>{ displayName }</span>
+      <span className="auth__title">{ displayName }</span>
       { actions }
     </div>
   )

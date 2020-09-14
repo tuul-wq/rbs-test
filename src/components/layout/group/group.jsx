@@ -5,7 +5,9 @@ function Group({ legend, children }) {
   return (
     <fieldset className="group">
       <legend className="group__legend">{legend}</legend>
-      { children }
+      <div className="group__content">
+        { children }
+      </div>
     </fieldset>
   )
 }

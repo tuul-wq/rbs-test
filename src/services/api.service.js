@@ -4,11 +4,15 @@ class APIservice {
   }
 
   async _getResource(url, params) {
-    const res = await fetch(this._apiBase + url, { ...params });
-    if (!res.ok) {
-      throw new Error(`Could not fetch ${url}, error status: ${res.status}`);
+    const { ok, status, json } = await fetch(this._apiBase + url, { ...params });
+    if (!ok) {
+      if (this._isServerError(status)) {
+        console.error(`Server error status : ${status}`);
+        throw new Error(status);
+      }
+      throw new Error(`Could not fetch ${url}, error status: ${status}`);
     }
-    return res.json();
+    return json();
   }
 
   _post(url, params = {}) {
@@ -32,6 +36,10 @@ class APIservice {
         'Accept': 'application/json;charset=UTF-8'
       }
     });
+  }
+
+  _isServerError(status) {
+    return /5\d\d/.test(status);
   }
 }
 

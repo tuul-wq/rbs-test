@@ -1,3 +1,5 @@
+import { userInitialStore } from '../reducers/user';
+
 export const USER_LOGGED_IN = 'USER_LOGGED_IN';
 function userLoggedIn(user) {
   return {
@@ -9,7 +11,10 @@ function userLoggedIn(user) {
 export const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
 function userLoggedOut() {
   return {
-    type: USER_LOGGED_OUT
+    type: USER_LOGGED_OUT,
+    payload: {
+      initialStore: userInitialStore
+    }
   }
 }
 
