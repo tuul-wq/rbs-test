@@ -3,7 +3,7 @@ import './input-row.scss';
 
 function InputRow({ label, idFor, value, onInputChange }) {
   const inputChange = (event) => {
-    onInputChange(event.target.value);
+    onInputChange(idFor, event.target.value);
   }
 
   return (

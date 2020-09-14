@@ -3,7 +3,7 @@ import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 
 import GroupRows from '../group-rows/group-rows';
-import withRbsService from '../../../components/hoc/withRbsService';
+import withService from '../../../components/hoc/withService';
 import { updateProfileParam } from '../../../store/actions/storage';
 
 function Options(props) {
@@ -31,6 +31,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default compose(
-  withRbsService,
+  withService(),
   connect(mapStateToProps, mapDispatchToProps)
 )(Options);

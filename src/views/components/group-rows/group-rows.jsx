@@ -5,7 +5,7 @@ import InputRow from '../../../components/ui/input-row/input-row';
 import './group-rows.scss';
 
 function GroupRows({ groupName, fields, onInputChange }) {
-  const inputChange = (label) => (value) => {
+  const inputChange = (label, value) => {
     onInputChange(label, value);
   }
 
@@ -19,7 +19,7 @@ function GroupRows({ groupName, fields, onInputChange }) {
               label={object.label}
               idFor={key}
               value={object.value}
-              onInputChange={inputChange(key)}
+              onInputChange={inputChange}
             />
           )
         }

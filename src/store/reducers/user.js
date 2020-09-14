@@ -1,13 +1,17 @@
 import { USER_LOGGED_IN, USER_LOGGED_OUT } from '../actions/user';
 
 function updateUser(state, { type, payload }) {
-  if (state === undefined) return initialStore;
+  if (state?.user === undefined) return initialStore;
 
   switch(type) {
     case USER_LOGGED_IN:
-      return state.user;
+      return {
+        isLoggedIn: true,
+        login: payload.user.login,
+        email: payload.user.email
+      };
     case USER_LOGGED_OUT:
-      return state.user;
+      return { ...initialStore };
     default:
       return state.user;
   }

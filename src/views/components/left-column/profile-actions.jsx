@@ -3,7 +3,7 @@ import React from 'react';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 
-import withRbsService from '../../../components/hoc/withRbsService';
+import withService from '../../../components/hoc/withService';
 import BaseButton from '../../../components/ui/base-button/base-button';
 import { addProfile, updateProfile, removeProfile } from '../../../store/actions/storage';
 
@@ -38,6 +38,6 @@ function mapDispatchToProps(dispatch, { service }) {
 }
 
 export default compose(
-  withRbsService,
+  withService(),
   connect(mapStateToProps, mapDispatchToProps)
 )(ProfileActions);

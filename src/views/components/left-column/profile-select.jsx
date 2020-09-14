@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 
-import withRbsService from '../../../components/hoc/withRbsService';
+import withService from '../../../components/hoc/withService';
 import InputRow from '../../../components/ui/input-row/input-row';
 import BaseSelect from '../../../components/ui/base-select/base-select';
 import ProfileActions from './profile-actions';
@@ -10,7 +10,14 @@ import Group from '../../../components/layout/group/group';
 import { selectProfile, updateProfileParam } from '../../../store/actions/storage';
 
 function ProfileSelect({ fields, onInputChange, onSelectProfile }) {
-  const inputChange = (label) => (value) => {
+  useEffect(() => {
+    // get list
+    // if loggedIn changed sync
+
+    // TODO: on remove do not add empty profile
+  });
+
+  const inputChange = (label, value) => {
     onInputChange(label, value);
   }
 
@@ -27,7 +34,7 @@ function ProfileSelect({ fields, onInputChange, onSelectProfile }) {
         label="Имя профиля"
         idFor="profileName"
         value={fields.profileName.value}
-        onInputChange={inputChange('profileName')}
+        onInputChange={inputChange}
       />
       <ProfileActions />
     </Group>
@@ -53,7 +60,6 @@ function mapStateToProps({ storage }) {
   }
 }
 
-// function mapDispatchToProps(dispatch, { service }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     onInputChange: updateProfileParam,
@@ -62,6 +68,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default compose(
-  withRbsService,
+  withService(),
   connect(mapStateToProps, mapDispatchToProps)
 )(ProfileSelect);

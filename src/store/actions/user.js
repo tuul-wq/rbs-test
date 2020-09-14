@@ -13,17 +13,14 @@ function userLoggedOut() {
   }
 }
 
-export function loginUser(service) {
-  return async function(dispatch) {
-    // await service.login(login, password)
-    const user = await service.login();
-    dispatch(userLoggedIn(user));
-  }
+export const loginUser = (service) => () =>
+  async (dispatch) => {
+  const user = await service.login();
+  dispatch(userLoggedIn(user));
 }
 
-export function logoutUser(service) {
-  return async function(dispatch) {
-    await service.logout();
-    dispatch(userLoggedOut());
-  }
+export const logoutUser = (service) => () =>
+  async (dispatch) => {
+  await service.logout();
+  dispatch(userLoggedOut());
 }
