@@ -8,30 +8,37 @@ class RbsService extends APIservice {
   }
 
   async getAllProfiles() {
-    let dbProfiles = null;
+    let dbProfiles = [];
     try {
       const res = await this._post(ENDPOINTS.GET_ALL);
       const match = res.server_storage.find(ss => ss.key === GATEWAY_PROFILES);
       dbProfiles = JSON.parse(match.value.replaceAll('&quot;', '"')) || [];
     } catch (error) {
-      if (error !== 500) return;
+      if (!this._isServerError(error)) return;
       dbProfiles = this._ls.getAllProfiles();
+    } finally {
+      return this._ls.mergeStorages(dbProfiles);
     }
-    return this._ls.mergeStorages(dbProfiles);
   }
 
   async removeSingleProfile() {
     try {
       await this._post(ENDPOINTS.REMOVE_SINGLE);
     } catch (error) {
+      if (!this._isServerError(error)) return;
       this._ls.setStorageValue();
     }
   }
 
   async updateProfile(profiles) {
-    await this._post(ENDPOINTS.UPDATE, {
-      body: JSON.stringify({ key: GATEWAY_PROFILES, value: JSON.stringify(profiles) })
-    });
+    try {
+      await this._post(ENDPOINTS.UPDATE, {
+        body: JSON.stringify({ key: GATEWAY_PROFILES, value: JSON.stringify(profiles) })
+      });
+    } catch (error) {
+      if (!this._isServerError(error)) return;
+      this._ls.setStorageValue(profiles);
+    }
   }
 
   syncStorages(dbProfiles) {
@@ -39,32 +46,27 @@ class RbsService extends APIservice {
   }
 
   async login() {
-    const res = await this._post(ENDPOINTS.LOGIN, {
-      headers: {
-        'X-Original-Url': `https://all.rbsdev.com/sb-mp3front/${ENDPOINTS.LOGIN}`
-      },
-      body: JSON.stringify({ login: 'mp3-lk', password: 'mp3-lk', language: 'ru' })
-    });
-
-    return { login: res.login, email: res.email };
-
-    // const profiles = res.server_storage.find(({ key }) => key === GATEWAY_PROFILES);
-    // return profiles ? JSON.parse(profiles.value.replaceAll('&quot;', '"')) : [];
+    try {
+      const res = await this._post(ENDPOINTS.LOGIN, {
+        headers: {
+          'X-Original-Url': `https://all.rbsdev.com/sb-mp3front/${ENDPOINTS.LOGIN}`
+        },
+        body: JSON.stringify({ login: 'mp3-lk', password: 'mp3-lk', language: 'ru' })
+      });
+      return { login: res.login, email: res.email };
+    } catch (error) {
+      if (!this._isServerError(error)) return;
+      return { login: '', email: '' };
+    }
   }
 
   async logout() {
-    await this._post(ENDPOINTS.LOGOUT);
+    try {
+      await this._post(ENDPOINTS.LOGOUT);
+    } catch (error) {
+      if (!this._isServerError(error)) return;
+    }
   }
-
-
-  // TODO: maybe in future
-  // async getSingleProfile() {
-  //   const res = await this._getResource(ENDPOINTS.GET_SINGLE);
-  // }
-
-  // async removeAllProfiles() {
-  //   const res = await this._getResource(ENDPOINTS.REMOVE_ALL);
-  // }
 }
 
 const GATEWAY_PROFILES = 'GATEWAY_PROFILES';

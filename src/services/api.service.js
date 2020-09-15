@@ -4,15 +4,12 @@ class APIservice {
   }
 
   async _getResource(url, params) {
-    const { ok, status, json } = await fetch(this._apiBase + url, { ...params });
-    if (!ok) {
-      if (this._isServerError(status)) {
-        console.error(`Server error status : ${status}`);
-        throw new Error(status);
-      }
-      throw new Error(`Could not fetch ${url}, error status: ${status}`);
+    const res = await fetch(this._apiBase + url, { ...params });
+    if (!res.ok) {
+      console.error(`Could not fetch ${res.url}, error status: ${res.status}`);
+      throw new Error(res.status);
     }
-    return json();
+    return res.json();
   }
 
   _post(url, params = {}) {

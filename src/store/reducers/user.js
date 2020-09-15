@@ -3,10 +3,12 @@ import { USER_LOGGED_IN, USER_LOGGED_OUT } from '../actions/user';
 function updateUser(state, { type, payload }) {
   switch(type) {
     case USER_LOGGED_IN:
+      const { login, email } = payload.user;
+      const isValidUser = Boolean(login) && Boolean(email);
       return {
-        isLoggedIn: true,
-        login: payload.user.login,
-        email: payload.user.email
+        isLoggedIn: isValidUser,
+        login,
+        email
       };
     case USER_LOGGED_OUT:
       return { ...payload.initialStore };

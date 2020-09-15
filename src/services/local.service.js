@@ -12,9 +12,10 @@ class LocalService {
     localStorage.setItem(this.storageKey, JSON.stringify(value));
   }
 
-  mergeStorages(dbProfiles) {
-    const backupLs = this.getStorageValue() || [];
+  mergeStorages(dbProfiles = []) {
+    const backupLs = this.getStorageValue();
     if (!backupLs.length) return dbProfiles;
+    if (!dbProfiles.length) return backupLs;
 
     const profiles = backupLs.map(ls => {
       const match = dbProfiles.find(db => db.profileId === ls.profileId);

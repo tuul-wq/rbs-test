@@ -4,7 +4,9 @@ import './group.scss';
 function Group({ legend, children }) {
   return (
     <fieldset className="group">
-      <legend className="group__legend">{legend}</legend>
+      <legend className="group__legend">
+        {legend}
+      </legend>
       <div className="group__content">
         { children }
       </div>

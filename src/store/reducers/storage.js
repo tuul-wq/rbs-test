@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
 
 import {
-    PARAM_UPDATED, PROFILE_ADDED, PROFILE_SELECTED, PROFILES_LOADED,
-    PROFILE_UPDATED, PROFILE_REMOVED, PROFILE_REMOVED_ALL
+    PARAM_UPDATED, PROFILE_ADDED, PROFILE_SELECTED,
+    PROFILE_UPDATED, PROFILE_REMOVED, PROFILES_LOADED
   } from '../actions/storage';
 
 function updateStorage(state, { type, payload }) {
@@ -11,10 +11,7 @@ function updateStorage(state, { type, payload }) {
 
   switch(type) {
     case PROFILE_ADDED:
-      const { profileName, ...restParams } = profiles[selectedIndex];
-      const isTouched = Object.values(restParams).some(Boolean);
-      if (!isTouched) return storage;
-
+      const { profileName } = profiles[selectedIndex];
       return {
           selectedIndex: 1,
           selectedName: profileName,
@@ -22,6 +19,7 @@ function updateStorage(state, { type, payload }) {
       }
     case PROFILE_SELECTED:
       return {
+        // TODO: check this
           ...(payload.profileIndex === 0
             ? { profiles: [payload.cleanProfile].concat(profiles.slice(1)) }
             : storage
@@ -30,6 +28,7 @@ function updateStorage(state, { type, payload }) {
           selectedIndex: payload.profileIndex,
       }
     case PROFILE_REMOVED:
+      // TODO: same logic in action
       const { profileIndex } = payload;
       const newProfiles = profiles.filter((_, index) => index !== profileIndex);
       const newIndex = newProfiles.length - 1 >= profileIndex ? profileIndex : profileIndex - 1;
@@ -39,6 +38,7 @@ function updateStorage(state, { type, payload }) {
           selectedName: newProfiles[newIndex].profileName
       };
     case PARAM_UPDATED:
+      // TODO: check other solutions
       const currentIndex = profiles.findIndex((_, index) => index === selectedIndex);
       const updatedProfiles = profiles.map((profile, index) =>
           index === currentIndex ? { ...profile, [payload.paramName]: payload.value } : profile
@@ -47,13 +47,8 @@ function updateStorage(state, { type, payload }) {
           ...storage,
           profiles: updatedProfiles
       };
-    case PROFILE_REMOVED_ALL:
-      return {
-          selectedIndex: 0,
-          selectedName: payload.cleanProfile.profileName,
-          profiles: [payload.cleanProfile]
-      };
     case PROFILES_LOADED:
+      // TODO: don't reset index
       return {
           selectedIndex: 0,
           selectedName: payload.cleanProfile.profileName,

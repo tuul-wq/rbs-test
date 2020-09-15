@@ -10,11 +10,11 @@ function Auth({ isLoggedIn, login, email, onLogin, onLogout }) {
   const displayName = isLoggedIn ? `${login} (${email})` : 'Offline';
 
   const actions = isLoggedIn
-    ? <button type="button" onClick={onLogout}>
+    ? <button type="button" className="red" onClick={onLogout}>
         <i className="fas fa-sign-out-alt" />
         <span className="auth__btn-title">Выйти</span>
       </button>
-    : <button type="button" onClick={onLogin}>
+    : <button type="button" className="blue" onClick={onLogin}>
         <i className="fas fa-sign-in-alt" />
         <span className="auth__btn-title">Войти</span>
       </button>;

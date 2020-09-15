@@ -30,8 +30,7 @@ function mapStateToProps({ storage }) {
     isTemplateProfile: selectedIndex === 0,
     hasValues: () => {
       const { profileId, profileName, ...restParams } = profiles[selectedIndex];
-      return Object.values(restParams).some(Boolean);
-      // return profileName.length >= 3 && Object.values(restParams).some(Boolean);
+      return profileName.length >= 3 && Object.values(restParams).some(Boolean);
     }
   }
 }

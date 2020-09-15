@@ -9,9 +9,17 @@
     cursor: pointer;
     font-family: inherit;
     background-color: transparent;
-    border: 2px solid royalblue;
+    border: 2px solid;
     border-radius: 5px;
     padding: 3px 8px;
+
+    &.red {
+      border-color: #e14141
+    }
+
+    &.blue {
+      border-color:royalblue;
+    }
 
     &:hover > i {
       transform: translateX(5px);

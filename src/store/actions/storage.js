@@ -37,16 +37,6 @@ function profileRemoved(profileIndex) {
   }
 }
 
-export const PROFILE_REMOVED_ALL = 'PROFILE_REMOVED_ALL';
-export function profileRemovedAll() {
-  return {
-    type: PROFILE_REMOVED_ALL,
-    payload: {
-      cleanProfile: EMPTY_PROFILE()
-    }
-  }
-}
-
 export const PROFILE_SELECTED = 'PROFILE_SELECTED';
 export function selectProfile(profileIndex) {
   return {
@@ -82,7 +72,7 @@ export const addProfile = (service) => () =>
 export const updateProfile = (service) => () =>
   async (dispatch, getState) => {
     const { storage: { profiles, selectedIndex } } = getState();
-    const profilesToUpdate = getRealProfiles(profiles, selectedIndex);
+    const profilesToUpdate = profiles.slice(1);
     await service.updateProfile(profilesToUpdate);
     dispatch(profileUpdated(selectedIndex));
 }
@@ -95,19 +85,9 @@ export const removeProfile = (service) => () =>
     dispatch(profileRemoved(selectedIndex));
 }
 
-export const removeAllProfile = (service) => () =>
-  async (dispatch) => {
-    await service.updateProfile([]);
-    dispatch(profileRemovedAll());
-}
-
 export const syncStorages = (service) => () =>
   (_, getState) => {
     const { storage: { profiles } } = getState();
     const realProfiles = profiles.slice(1);
     service.syncStorages(realProfiles);
-}
-
-function getRealProfiles(profiles, index) {
-  return index === 0 ? profiles.slice(1) : profiles;
 }
