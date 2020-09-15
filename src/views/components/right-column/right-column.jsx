@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import GroupRows from '../group-rows/group-rows';
 import { updateProfileParam } from '../../../store/actions/storage';
@@ -28,10 +27,8 @@ function mapStateToProps({ storage }) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    onInputChange: updateProfileParam
-  }, dispatch)
-}
+const mapDispatchToProps = {
+  onInputChange: updateProfileParam
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(RightColumn);

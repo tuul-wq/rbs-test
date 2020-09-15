@@ -14,7 +14,6 @@ class RbsService extends APIservice {
       const match = res.server_storage.find(ss => ss.key === GATEWAY_PROFILES);
       dbProfiles = JSON.parse(match.value.replaceAll('&quot;', '"')) || [];
     } catch (error) {
-      if (!this._isServerError(error)) return;
       dbProfiles = this._ls.getAllProfiles();
     } finally {
       return this._ls.mergeStorages(dbProfiles);
@@ -25,7 +24,6 @@ class RbsService extends APIservice {
     try {
       await this._post(ENDPOINTS.REMOVE_SINGLE);
     } catch (error) {
-      if (!this._isServerError(error)) return;
       this._ls.setStorageValue();
     }
   }
@@ -36,7 +34,6 @@ class RbsService extends APIservice {
         body: JSON.stringify({ key: GATEWAY_PROFILES, value: JSON.stringify(profiles) })
       });
     } catch (error) {
-      if (!this._isServerError(error)) return;
       this._ls.setStorageValue(profiles);
     }
   }
@@ -55,7 +52,6 @@ class RbsService extends APIservice {
       });
       return { login: res.login, email: res.email };
     } catch (error) {
-      if (!this._isServerError(error)) return;
       return { login: '', email: '' };
     }
   }
@@ -63,9 +59,7 @@ class RbsService extends APIservice {
   async logout() {
     try {
       await this._post(ENDPOINTS.LOGOUT);
-    } catch (error) {
-      if (!this._isServerError(error)) return;
-    }
+    } catch (error) { }
   }
 }
 

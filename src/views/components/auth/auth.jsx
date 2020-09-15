@@ -44,5 +44,5 @@ function mapDispatchToProps(dispatch, { service }) {
 
 export default compose(
   withService(true),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
 )(Auth);

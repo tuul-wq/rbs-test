@@ -4,7 +4,9 @@ import { bindActionCreators, compose } from 'redux';
 
 import withService from '../../../../components/hoc/withService';
 import ProfileSelect from './profile-select';
-import { selectProfile, updateProfileParam, getProfiles, syncStorages } from '../../../../store/actions/storage';
+import {
+  selectProfile, updateProfileParam, getProfiles, syncStorages
+} from '../../../../store/actions/storage';
 
 class ProfileSelectContainer extends Component {
   componentDidMount() {
@@ -29,6 +31,16 @@ class ProfileSelectContainer extends Component {
   }
 }
 
+function setupOptions(profiles, index, profileName) {
+  return profiles.map((profile, idx) => {
+    const name =
+      (idx === 0 && 'New Profile') ||
+      (idx === index && profileName) ||
+      profile.profileName;
+    return { id: profile.profileId, name };
+  });;
+}
+
 function mapStateToProps({ storage, user }) {
   const { selectedIndex, selectedName, profiles } = storage;
   const current = profiles[selectedIndex];
@@ -39,11 +51,7 @@ function mapStateToProps({ storage, user }) {
       selectProfile: {
         label: 'Выберите профиль',
         value: selectedIndex,
-        options: profiles.map((profile, index) =>
-          (index === 0 && 'New Profile') ||
-          (index === selectedIndex && selectedName) ||
-          profile.profileName
-        )
+        options: setupOptions(profiles, selectedIndex, selectedName)
       }
     }
   }

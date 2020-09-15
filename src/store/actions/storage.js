@@ -41,10 +41,7 @@ export const PROFILE_SELECTED = 'PROFILE_SELECTED';
 export function selectProfile(profileIndex) {
   return {
     type: PROFILE_SELECTED,
-    payload: {
-      profileIndex,
-      cleanProfile: EMPTY_PROFILE()
-    }
+    payload: { profileIndex }
   }
 }
 

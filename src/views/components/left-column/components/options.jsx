@@ -1,5 +1,5 @@
 import React from 'react';
-import { bindActionCreators, compose } from 'redux';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 import GroupRows from '../../group-rows/group-rows';
@@ -24,11 +24,9 @@ function mapStateToProps({ storage }) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    onInputChange: updateProfileParam
-  }, dispatch)
-}
+const mapDispatchToProps = {
+  onInputChange: updateProfileParam
+};
 
 export default compose(
   withService(),

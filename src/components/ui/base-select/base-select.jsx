@@ -17,7 +17,7 @@ function BaseSelect({ options, label, idFor, index, onInputChange }) {
       >
         {
           options.map((option, index) =>
-            <option key={option + index} value={index}>{option}</option>
+            <option key={option.id} value={index}>{option.name}</option>
           )
         }
       </select>
@@ -25,4 +25,4 @@ function BaseSelect({ options, label, idFor, index, onInputChange }) {
   )
 }
 
-export default BaseSelect;
+export default React.memo(BaseSelect);

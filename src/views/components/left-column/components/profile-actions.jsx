@@ -11,27 +11,24 @@ function ProfileActions({
   isTemplateProfile, hasValues, onAddProfile, onUpdateProfile, onRemoveProfile
 }) {
   const actions = isTemplateProfile
-    ? <BaseButton title="Добавить профиль" disabled={!hasValues()} onClicked={onAddProfile} />
+    ? <BaseButton title="Добавить профиль" disabled={!hasValues} onClicked={onAddProfile} />
     : <>
       <BaseButton title="Обновить профиль" onClicked={onUpdateProfile} />
       <BaseButton title="Удалить профиль" onClicked={onRemoveProfile} />
     </>;
 
   return (
-    <div className="action-group">
-      {actions}
-    </div>
+    <div className="action-group">{actions}</div>
   )
 }
 
 function mapStateToProps({ storage }) {
   const { selectedIndex, profiles } = storage;
+  const { profileId, profileName, ...restParams } = profiles[selectedIndex];
+  const hasValues = profileName.length >= 3 && Object.values(restParams).some(Boolean);
   return {
     isTemplateProfile: selectedIndex === 0,
-    hasValues: () => {
-      const { profileId, profileName, ...restParams } = profiles[selectedIndex];
-      return profileName.length >= 3 && Object.values(restParams).some(Boolean);
-    }
+    hasValues
   }
 }
 

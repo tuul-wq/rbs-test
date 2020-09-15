@@ -20,4 +20,4 @@ function InputRow({ label, idFor, value, onInputChange }) {
   )
 }
 
-export default InputRow;
+export default React.memo(InputRow);
