@@ -1,0 +1,27 @@
+.login {
+  display: flex;
+  label:first-child {
+    margin-right: 8px;
+  }
+
+  button {
+    cursor: pointer;
+    font-family: inherit;
+    background-color: transparent;
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 3px 8px;
+  }
+
+  .hidden-visually {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+  }
+}

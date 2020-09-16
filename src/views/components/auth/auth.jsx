@@ -4,6 +4,7 @@ import { bindActionCreators, compose } from 'redux';
 
 import withService from '../../../components/hoc/withService';
 import { loginUser, logoutUser } from '../../../store/actions/user';
+import Login from '../login/login';
 import './auth.scss';
 
 function Auth({ isLoggedIn, login, email, onLogin, onLogout }) {
@@ -21,8 +22,9 @@ function Auth({ isLoggedIn, login, email, onLogin, onLogout }) {
 
   return (
     <div className="auth">
-      <span className="auth__title">{ displayName }</span>
-      { actions }
+      <Login />
+      {/* <span className="auth__title">{ displayName }</span>
+      { actions } */}
     </div>
   )
 }
