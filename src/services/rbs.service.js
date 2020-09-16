@@ -42,17 +42,17 @@ class RbsService extends APIservice {
     this._ls.syncStorages(dbProfiles);
   }
 
-  async login() {
+  async login(login, password) {
     try {
       const res = await this._post(ENDPOINTS.LOGIN, {
         headers: {
           'X-Original-Url': `https://all.rbsdev.com/sb-mp3front/${ENDPOINTS.LOGIN}`
         },
-        body: JSON.stringify({ login: 'mp3-lk', password: 'mp3-lk', language: 'ru' })
+        body: JSON.stringify({ login, password, language: 'ru' })
       });
-      return { login: res.login, email: res.email };
+      return { login: res.login, email: res.email, hasError: false };
     } catch (error) {
-      return { login: '', email: '' };
+      return { login: '', email: '', hasError: true };
     }
   }
 

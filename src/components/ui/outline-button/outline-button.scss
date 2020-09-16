@@ -1,0 +1,20 @@
+.btn-outline {
+  cursor: pointer;
+  font-family: inherit;
+  background-color: transparent;
+  border: 2px solid;
+  border-radius: 5px;
+  padding: 3px 8px;
+
+  &.red {
+    border-color: #e14141
+  }
+
+  &.blue {
+    border-color:royalblue;
+  }
+
+  .btn-outline__title {
+    font-family: 'Capture it', arial;
+  }
+}

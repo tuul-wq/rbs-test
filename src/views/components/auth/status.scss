@@ -1,0 +1,25 @@
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  .status__title {
+    font-family: 'Capture it', arial;
+    margin-right: 15px;
+  }
+
+  .btn-outline  {
+    .btn-outline__title:not(:empty) {
+      margin-left: 10px;
+    }
+
+    &:hover > i {
+      transform: translateX(5px);
+    }
+
+    i {
+      transform: translateX(0);
+      transition: transform .3s ease-out;
+    }
+  }
+}

@@ -18,9 +18,16 @@ function userLoggedOut() {
   }
 }
 
-export const loginUser = (service) => () =>
+export const USER_ERROR_RESET = 'USER_ERROR_RESET';
+export function resetLoginError() {
+  return {
+    type: USER_ERROR_RESET
+  }
+}
+
+export const loginUser = (service) => (login, password) =>
   async (dispatch) => {
-  const user = await service.login();
+  const user = await service.login(login, password);
   dispatch(userLoggedIn(user));
 }
 

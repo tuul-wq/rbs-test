@@ -1,4 +1,6 @@
-import { USER_LOGGED_IN, USER_LOGGED_OUT } from '../actions/user';
+import {
+  USER_LOGGED_IN, USER_LOGGED_OUT, USER_ERROR_RESET
+} from '../actions/user';
 
 function updateUser(state, { type, payload }) {
   switch(type) {
@@ -7,11 +9,15 @@ function updateUser(state, { type, payload }) {
       const isValidUser = Boolean(login) && Boolean(email);
       return {
         isLoggedIn: isValidUser,
-        login,
-        email
+        ...payload.user
       };
     case USER_LOGGED_OUT:
       return { ...payload.initialStore };
+    case USER_ERROR_RESET:
+      return {
+        ...state.user,
+        hasError: false
+      };
     default:
       return state.user;
   }
@@ -20,7 +26,8 @@ function updateUser(state, { type, payload }) {
 export const userInitialStore = {
   isLoggedIn: false,
   login: '',
-  email: ''
+  email: '',
+  hasError: false
 };
 
 export default updateUser;

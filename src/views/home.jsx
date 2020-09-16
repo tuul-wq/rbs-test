@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Auth from './components/auth/auth';
+import Auth from './components/auth/auth-container';
 import TwoColumns from '../components/layout/two-columns/two-columns';
 import LeftColumn from './components/left-column/left-column';
 import RightColumn from './components/right-column/right-column';

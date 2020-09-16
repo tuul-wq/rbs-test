@@ -1,16 +1,17 @@
 .login {
   display: flex;
-  label:first-child {
-    margin-right: 8px;
-  }
+  align-items: center;
 
-  button {
-    cursor: pointer;
-    font-family: inherit;
-    background-color: transparent;
-    border: 2px solid;
-    border-radius: 5px;
-    padding: 3px 8px;
+  label {
+    margin-right: 8px;
+
+    input {
+      width: 100%;
+
+      &.error {
+        box-shadow: 0 0 3px #e14141;
+      }
+    }
   }
 
   .hidden-visually {
