@@ -26,7 +26,7 @@ function AuthContainer({ onLogin, onLogout, onErrorReset, ...user}) {
     ...user,
     showForm,
     onLogout: logOut,
-    displayName: user.isLoggedIn ? `${user.login} (${user.email})` : 'Offline'
+    displayName: user.isLoggedIn ? `${user.login} (${user.email || 'no email'})` : 'Offline'
   }
 
   const loginProps = {

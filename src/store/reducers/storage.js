@@ -63,21 +63,29 @@ function updateStorage(state, { type, payload }) {
   }
 }
 
-export const EMPTY_PROFILE = () => ({
-  profileId: nanoid(),
-  profileName: 'New Profile',
-  systemAddress: '',
-  userName: '',
-  password: '',
-  currency: '',
-  numberInSystem: '',
-  orderSum: '',
-  language: '',
-  returnAddress: '',
-  orderDescription: '',
-  clientId: '',
-  bondId: ''
-});
+export const EMPTY_PROFILE = () => {
+  var date = new Date();
+  var sysNumber = ['FullYear', 'Month', 'Date', 'Hours', 'Minutes', 'Seconds', 'Milliseconds']
+    .map(method => date['get' + method]())
+    .join('');
+  return {
+    profileId: nanoid(),
+    profileName: 'New Profile',
+    systemAddress: '/payment/',
+    userName: 'test ',
+    password: 'testPwd',
+    currency: '643',
+    numberInSystem: sysNumber,
+    orderSum: '100',
+    language: 'ru',
+    returnAddress: '../merchants/test/finish.html',
+    orderDescription: '',
+    clientId: '',
+    bondId: ''
+  }
+};
+const date = new Date();
+date.getUTCFullYear();
 
 export const storageInitialStore = {
   selectedName: '',

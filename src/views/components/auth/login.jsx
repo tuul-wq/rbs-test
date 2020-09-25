@@ -15,7 +15,7 @@ function Login({ hasError, onNoActions, onLogin }) {
   }
 
   useEffect(() => {
-    const timer = setTimeout(onNoActions, 70 * 1000);
+    const timer = setTimeout(onNoActions, 15 * 1000);
     return () => clearTimeout(timer)
   });
 

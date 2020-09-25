@@ -1,7 +1,4 @@
 class APIservice {
-  constructor(baseUrl) {
-    this._apiBase = baseUrl;
-  }
 
   _post(url, params = {}) {
     return this._getResource(url, {
@@ -27,12 +24,20 @@ class APIservice {
   }
 
   async _getResource(url, params) {
-    const res = await fetch(this._apiBase + url, { ...params });
+    const res = await fetch(this.path + url, { ...params });
     if (!res.ok) {
       console.error(`Could not fetch ${res.url}, error status: ${res.status}`);
       throw new Error(res.status);
     }
     return res.json();
+  }
+
+  get path() {
+    return '/' + window.location.pathname.split('/')[1];
+  }
+
+  get originPath() {
+    return window.location.origin + this.path;
   }
 }
 

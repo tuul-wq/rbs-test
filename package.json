@@ -15,7 +15,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
   },
-  "proxy": "https://all.rbsdev.com",
+  "proxy": "https://all.rbsdev.com/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

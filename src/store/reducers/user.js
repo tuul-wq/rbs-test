@@ -6,7 +6,7 @@ function updateUser(state, { type, payload }) {
   switch(type) {
     case USER_LOGGED_IN:
       const { login, email } = payload.user;
-      const isValidUser = Boolean(login) && Boolean(email);
+      const isValidUser = Boolean(login) || Boolean(email);
       return {
         isLoggedIn: isValidUser,
         ...payload.user

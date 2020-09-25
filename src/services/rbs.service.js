@@ -3,7 +3,7 @@ import LocalService from './local.service';
 
 class RbsService extends APIservice {
   constructor() {
-    super('/sb-mp3back/');
+    super();
     this._ls = new LocalService();
   }
 
@@ -46,7 +46,9 @@ class RbsService extends APIservice {
     try {
       const res = await this._post(ENDPOINTS.LOGIN, {
         headers: {
-          'X-Original-Url': `https://all.rbsdev.com/sb-mp3front/${ENDPOINTS.LOGIN}`
+          'X-Original-Url': this.originPath + ENDPOINTS.LOGIN
+          // needs 'front' suffix in dev mode
+          // 'X-Original-Url': `https://all.rbsdev.com/sb-mp3front-stg${ENDPOINTS.LOGIN}`
         },
         body: JSON.stringify({ login, password, language: 'ru' })
       });
@@ -65,7 +67,7 @@ class RbsService extends APIservice {
 
 const GATEWAY_PROFILES = 'GATEWAY_PROFILES';
 
-const STORAGE_PATH = 'serverstorage';
+const STORAGE_PATH = '/serverstorage';
 
 const ENDPOINTS = {
   GET_ALL: `${STORAGE_PATH}/items`,
@@ -74,7 +76,7 @@ const ENDPOINTS = {
   REMOVE_SINGLE: `${STORAGE_PATH}/item/remove`,
   UPDATE: `${STORAGE_PATH}/item/set`,
 
-  LOGIN: 'auth/cookie/login',
+  LOGIN: '/auth/cookie/login',
   LOGOUT: `/logout`
 }
 
