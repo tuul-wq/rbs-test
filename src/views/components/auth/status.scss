@@ -1,3 +1,5 @@
+@import '../../../assets/styles/fonts';
+
 .status {
   display: flex;
   align-items: center;
@@ -20,6 +22,13 @@
     i {
       transform: translateX(0);
       transition: transform .3s ease-out;
+
+      &.status__sign-in {
+        background-image: url('../../../assets/images/sign-in.svg');
+      }
+      &.status__sign-out {
+        background-image: url('../../../assets/images/sign-out.svg');
+      }
     }
   }
 }

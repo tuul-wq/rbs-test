@@ -1,5 +1,9 @@
+@import '../../../assets/styles/fonts';
+
 .btn-outline {
   cursor: pointer;
+  display: flex;
+  align-items: center;
   font-family: inherit;
   background-color: transparent;
   border: 2px solid;
@@ -16,5 +20,14 @@
 
   .btn-outline__title {
     font-family: 'Capture it', arial;
+  }
+
+  i {
+    width: 16px;
+    height: 14px;
+    display: inline-block;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }

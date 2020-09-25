@@ -44,7 +44,7 @@ function Login({ hasError, onNoActions, onLogin }) {
         />
       </label>
       <OutlineButton type="blue" onClicked={login}>
-        <i className="fas fa-sign-in-alt" />
+        <i className="status__sign-out" />
       </OutlineButton>
     </div>
   )
