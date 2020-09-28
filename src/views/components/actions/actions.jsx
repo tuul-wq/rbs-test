@@ -4,7 +4,7 @@ import './actions.scss';
 
 function Actions() {
   return (
-    <footer className="footer">
+    <footer className="actions">
       <BaseButton title="Заказ (списание)" />
       <BaseButton title="Заказ (предавторизация)" />
     </footer>

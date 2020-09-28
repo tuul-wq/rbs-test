@@ -8,7 +8,7 @@
     align-items: unset;
   }
 
-  .select-row__label {
+  &__label {
     width: 50%;
     font-size: 11pt;
 
@@ -18,7 +18,7 @@
     }
   }
 
-  .select-row__select {
+  &__select {
     padding: 2px;
     width: 100%;
     max-width: 50%;

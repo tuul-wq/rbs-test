@@ -12,17 +12,6 @@ class APIservice {
     });
   }
 
-  _get(url, params) {
-    return this._getResource(url, {
-      ...params,
-      method: 'GET',
-      headers: {
-        ...params?.headers,
-        'Accept': 'application/json;charset=UTF-8'
-      }
-    });
-  }
-
   async _getResource(url, params) {
     const res = await fetch(this.path + url, { ...params });
     if (!res.ok) {

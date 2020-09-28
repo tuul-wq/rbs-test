@@ -1,7 +1,7 @@
 import React from 'react';
-import './base-select.scss';
+import './select-row.scss';
 
-function BaseSelect({ options, label, idFor, index, onInputChange }) {
+function SelectRow({ options, label, idFor, index, onInputChange }) {
   const onValueSelected = (event) => {
     onInputChange(parseInt(event.target.value));
   }
@@ -25,4 +25,4 @@ function BaseSelect({ options, label, idFor, index, onInputChange }) {
   )
 }
 
-export default React.memo(BaseSelect);
+export default React.memo(SelectRow);

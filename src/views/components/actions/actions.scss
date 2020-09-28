@@ -1,4 +1,4 @@
-.footer {
+.actions {
   display: flex;
   justify-content: space-between;
   margin: 20px 0;
@@ -9,7 +9,7 @@
     padding-left: 17px;
   }
 
-  .btn {
+  .button-base {
     flex: 1;
 
     &:last-of-type {

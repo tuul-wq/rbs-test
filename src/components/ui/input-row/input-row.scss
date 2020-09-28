@@ -8,7 +8,7 @@
     align-items: unset;
   }
 
-  .input-row__label {
+  &__label {
     width: 50%;
     font-size: 11pt;
 
@@ -18,7 +18,7 @@
     }
   }
 
-  .input-row__input {
+  &__input {
     width: 100%;
     max-width: 50%;
     margin-left: 10px;

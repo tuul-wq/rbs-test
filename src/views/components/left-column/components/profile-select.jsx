@@ -1,7 +1,7 @@
 import React from 'react';
 
 import InputRow from '../../../../components/ui/input-row/input-row';
-import BaseSelect from '../../../../components/ui/base-select/base-select';
+import SelectRow from '../../../../components/ui/select-row/select-row';
 import ProfileActions from './profile-actions';
 import Group from '../../../../components/layout/group/group';
 
@@ -12,7 +12,7 @@ function ProfileSelect({ fields, onInputChange, onSelectProfile }) {
 
   return (
     <Group legend="Сохраненные параметры">
-      <BaseSelect
+      <SelectRow
         label="Выберите профиль"
         idFor="selectProfile"
         options={fields.selectProfile.options}
