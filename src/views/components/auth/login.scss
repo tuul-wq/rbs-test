@@ -15,6 +15,10 @@
     }
   }
 
+  .btn-outline .status__sign-out {
+    background-image: url('../../../assets/images/sign-out.svg');
+  }
+
   .hidden-visually {
     border: 0;
     clip: rect(0, 0, 0, 0);

@@ -6,10 +6,10 @@ import './status.scss';
 function Status({ isLoggedIn, displayName, onLogout, showForm }) {
   const actions = isLoggedIn
     ? <OutlineButton title="Выйти" type="red" onClicked={onLogout}>
-        <i className="fas fa-sign-out-alt" />
+        <i className="status__sign-out" />
       </OutlineButton>
     : <OutlineButton title="Войти" type="blue" onClicked={showForm}>
-        <i className="fas fa-sign-in-alt" />
+        <i className="status__sign-in" />
       </OutlineButton>;
 
   return (
