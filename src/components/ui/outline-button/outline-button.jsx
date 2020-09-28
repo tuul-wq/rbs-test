@@ -3,9 +3,9 @@ import './outline-button.scss';
 
 function OutlineButton({ children, title, type = '', onClicked }) {
   return (
-    <button type="button" className={`btn-outline ${type}`} onClick={onClicked}>
+    <button type="button" className={`button-outline ${type}`} onClick={onClicked}>
       {children}
-      <span className="btn-outline__title">{title}</span>
+      <span className="button-outline__title">{title}</span>
     </button>
   )
 }

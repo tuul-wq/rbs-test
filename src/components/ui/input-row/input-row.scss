@@ -1,3 +1,5 @@
+@import '../../../assets/styles/variables';
+
 .input-row {
   display: flex;
   justify-content: space-between;
@@ -22,6 +24,19 @@
     width: 100%;
     max-width: 50%;
     margin-left: 10px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: 1px solid $gray-500;
+    outline: none;
+
+    &:hover {
+      border-color: $gray-600;
+    }
+
+    &:focus {
+      border-color: $gray-600;
+      box-shadow: 0 0 3px 2px $gray-400;
+    }
 
     @media screen and (max-width: 480px) {
       margin-left: 0;

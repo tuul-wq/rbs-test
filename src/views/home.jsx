@@ -14,13 +14,11 @@ function Home() {
         <h1 className="h1">Регистрация платежа</h1>
         <Auth />
       </header>
-      <main>
-        <TwoColumns
-          left={ <LeftColumn /> }
-          right={ <RightColumn /> }
-        />
-        <Actions />
-      </main>
+      <TwoColumns
+        left={ <LeftColumn /> }
+        right={ <RightColumn /> }
+      />
+      <Actions />
     </>
   )
 }

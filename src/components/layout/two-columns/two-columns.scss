@@ -1,3 +1,5 @@
+@import '../../../assets/styles/mixins';
+
 .two-columns {
   display: flex;
   flex-wrap: wrap;
@@ -7,7 +9,7 @@
     width: 385px;
     padding: 15px;
 
-    & > *:not(:last-child) {
+    @include all-but-last {
       margin-bottom: 20px;
     }
   }

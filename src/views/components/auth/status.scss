@@ -1,17 +1,18 @@
 @import '../../../assets/styles/fonts';
 
 .status {
+  $self: &;
   display: flex;
   align-items: center;
   justify-content: flex-end;
 
   &__title {
-    font-family: 'Capture it', arial;
+    font-family: 'Russo One', sans-serif;
     margin-right: 15px;
   }
 
-  .btn-outline  {
-    .btn-outline__title:not(:empty) {
+  .button-outline  {
+    &__title:not(:empty) {
       margin-left: 10px;
     }
 
@@ -23,10 +24,10 @@
       transform: translateX(0);
       transition: transform .3s ease-out;
 
-      &.status__sign-in {
+      &#{$self}__sign-in {
         background-image: url('../../../assets/images/sign-in.svg');
       }
-      &.status__sign-out {
+      &#{$self}__sign-out {
         background-image: url('../../../assets/images/sign-out.svg');
       }
     }

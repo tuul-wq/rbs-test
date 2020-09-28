@@ -1,10 +1,9 @@
 @import '../../../assets/styles/fonts';
 
-.btn-outline {
+.button-outline {
   cursor: pointer;
   display: flex;
   align-items: center;
-  font-family: inherit;
   background-color: transparent;
   border: 2px solid;
   border-radius: 5px;
@@ -18,8 +17,8 @@
     border-color:royalblue;
   }
 
-  .btn-outline__title {
-    font-family: 'Capture it', arial;
+  &__title {
+    font-family: 'Russo One', sans-serif;
   }
 
   i {

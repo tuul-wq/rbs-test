@@ -2,9 +2,13 @@
 
 body {
   margin: 0;
-  font-family: 'Roboto Regular', arial;
-  font-size: 10pt;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12pt;
   color: #2b2b2b;
+
+  h1, legend {
+    font-family: 'Russo One', sans-serif;
+  }
 }
 
 body * {
