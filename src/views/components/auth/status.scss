@@ -1,4 +1,4 @@
-@import '../../../assets/styles/fonts';
+@import '~Styles/fonts';
 
 .status {
   $self: &;
@@ -25,10 +25,10 @@
       transition: transform .3s ease-out;
 
       &#{$self}__sign-in {
-        background-image: url('../../../assets/images/sign-in.svg');
+        background-image: url(~Images/sign-in.svg);
       }
       &#{$self}__sign-out {
-        background-image: url('../../../assets/images/sign-out.svg');
+        background-image: url(~Images/sign-out.svg);
       }
     }
   }

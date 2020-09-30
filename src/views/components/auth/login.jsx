@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
-import OutlineButton from '../../../components/ui/outline-button/outline-button';
+import OutlineButton from 'Components/ui/outline-button/outline-button';
 import './login.scss';
 
 function Login({ hasError, onNoActions, onLogin }) {

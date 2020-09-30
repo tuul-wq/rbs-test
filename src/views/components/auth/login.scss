@@ -1,4 +1,4 @@
-@import '../../../assets/styles/mixins';
+@import '~Styles/mixins';
 
 .login {
   display: flex;
@@ -18,7 +18,7 @@
   }
 
   .button-outline .status__sign-out {
-    background-image: url('../../../assets/images/sign-out.svg');
+    background-image: url(~Images/sign-out.svg);
   }
 
   .hidden-visually {

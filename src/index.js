@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import store from './store/store';
-import App from './components/common/app/app';
-import RbsService from './services/rbs.service';
-import { ServiceContext } from './context/serviceContext';
+import store from 'Store/store';
+import App from 'Components/common/app/app';
+import RbsService from 'Services/rbs.service';
+import { ServiceContext } from 'Context/serviceContext';
+import LocalService from 'Services/local.service';
 import './index.scss';
-import LocalService from './services/local.service';
 
 const services = {
   offline: new LocalService(),

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 
-import withService from '../../../../components/hoc/withService';
+import withService from 'Components/hoc/withService';
 import ProfileSelect from './profile-select';
 import {
   selectProfile, updateProfileParam, getProfiles, syncStorages
-} from '../../../../store/actions/storage';
+} from 'Store/actions/storage';
 
 class ProfileSelectContainer extends Component {
   componentDidMount() {

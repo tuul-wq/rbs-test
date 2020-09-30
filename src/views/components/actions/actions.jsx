@@ -1,5 +1,6 @@
 import React from 'react';
-import BaseButton from '../../../components/ui/base-button/base-button';
+
+import BaseButton from 'Components/ui/base-button/base-button';
 import './actions.scss';
 
 function Actions() {

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import GroupRows from '../group-rows/group-rows';
-import { updateProfileParam } from '../../../store/actions/storage';
+import { updateProfileParam } from 'Store/actions/storage';
 
 function RightColumn(props) {
   return (

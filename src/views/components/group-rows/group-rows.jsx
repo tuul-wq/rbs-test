@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Group from '../../../components/layout/group/group';
-import InputRow from '../../../components/ui/input-row/input-row';
+import Group from 'Components/layout/group/group';
+import InputRow from 'Components/ui/input-row/input-row';
 
 function GroupRows({ groupName, fields, onInputChange }) {
   const inputChange = (label, value) => {

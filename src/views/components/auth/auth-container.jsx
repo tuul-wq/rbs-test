@@ -4,8 +4,8 @@ import { bindActionCreators, compose } from 'redux';
 
 import Status from './status';
 import Login from './login';
-import withService from '../../../components/hoc/withService';
-import { loginUser, logoutUser, resetLoginError } from '../../../store/actions/user';
+import withService from 'Components/hoc/withService';
+import { loginUser, logoutUser, resetLoginError } from 'Store/actions/user';
 
 function AuthContainer({ onLogin, onLogout, onErrorReset, ...user}) {
   const [formActive, setFormActive] = useState(false);

@@ -3,9 +3,9 @@ import React from 'react';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 
-import withService from '../../../../components/hoc/withService';
-import BaseButton from '../../../../components/ui/base-button/base-button';
-import { addProfile, updateProfile, removeProfile } from '../../../../store/actions/storage';
+import withService from 'Components/hoc/withService';
+import BaseButton from 'Components/ui/base-button/base-button';
+import { addProfile, updateProfile, removeProfile } from 'Store/actions/storage';
 
 function ProfileActions({
   isTemplateProfile, hasValues, onAddProfile, onUpdateProfile, onRemoveProfile

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import OutlineButton from '../../../components/ui/outline-button/outline-button';
+import OutlineButton from 'Components/ui/outline-button/outline-button';
 import './status.scss';
 
 function Status({ isLoggedIn, displayName, onLogout, showForm }) {

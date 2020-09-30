@@ -1,9 +1,9 @@
 import React from 'react';
 
-import InputRow from '../../../../components/ui/input-row/input-row';
-import SelectRow from '../../../../components/ui/select-row/select-row';
+import InputRow from 'Components/ui/input-row/input-row';
+import SelectRow from 'Components/ui/select-row/select-row';
+import Group from 'Components/layout/group/group';
 import ProfileActions from './profile-actions';
-import Group from '../../../../components/layout/group/group';
 
 function ProfileSelect({ fields, onInputChange, onSelectProfile }) {
   const inputChange = (label, value) => {
