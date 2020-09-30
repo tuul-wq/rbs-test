@@ -1,5 +1,24 @@
+@import './variables';
+
 @mixin all-but-last {
   > *:not(:last-child) {
     @content;
+  }
+}
+
+@mixin input {
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid $gray-500;
+  outline: none;
+
+  &:hover {
+    border-color: $gray-600;
+  }
+
+  &:focus {
+    border-color: $gray-600;
+    box-shadow: 0 0 3px 2px $gray-400;
   }
 }

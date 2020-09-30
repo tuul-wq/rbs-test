@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import classNames from 'classnames';
 
 import OutlineButton from '../../../components/ui/outline-button/outline-button';
 import './login.scss';
@@ -19,7 +20,9 @@ function Login({ hasError, onNoActions, onLogin }) {
     return () => clearTimeout(timer)
   });
 
-  const customClass = hasError ? 'error' : '';
+  const inputClass = classNames({
+    'error': hasError
+  });
 
   return (
     <div className="login">
@@ -28,7 +31,7 @@ function Login({ hasError, onNoActions, onLogin }) {
         <input
           type="text"
           placeholder="Login"
-          className={customClass}
+          className={inputClass}
           value={creds.login}
           onChange={changeValue('login')}
         />
@@ -38,7 +41,7 @@ function Login({ hasError, onNoActions, onLogin }) {
         <input
           type="password"
           placeholder="Password"
-          className={customClass}
+          className={inputClass}
           value={creds.password}
           onChange={changeValue('password')}
         />

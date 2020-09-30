@@ -34,9 +34,11 @@ function updateStorage(state, { type, payload }) {
       };
     case PARAM_UPDATED:
       const currentIndex = profiles.findIndex((_, index) => index === selectedIndex);
-      const updatedProfiles = profiles.map((profile, index) =>
-          index === currentIndex ? { ...profile, [payload.paramName]: payload.value } : profile
-      );
+      const updatedProfiles = [...profiles];
+      updatedProfiles[currentIndex] = {
+        ...updatedProfiles[currentIndex],
+        [payload.paramName]: payload.value
+      };
       return {
         ...storage,
         profiles: updatedProfiles

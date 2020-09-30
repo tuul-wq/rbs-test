@@ -1,3 +1,5 @@
+@import '../../../assets/styles/mixins';
+
 .login {
   display: flex;
   align-items: center;
@@ -7,7 +9,7 @@
     width: 100%;
 
     input {
-      width: 100%;
+      @include input;
 
       &.error {
         box-shadow: 0 0 3px #e14141;
