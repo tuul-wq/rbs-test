@@ -3,14 +3,14 @@
 const { resolve } = require('./utils');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.ts',
   output: {
     publicPath: '/',
     path: resolve('/build'),
     filename: 'main.js'
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.scss'],
+    extensions: ['.ts', '.tsx', '.js', '.scss'],
     alias: {
       Fonts: resolve('/src/assets/fonts/'),
       Images: resolve('/src/assets/images/'),
@@ -28,6 +28,11 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        loader: 'ts-loader'
       },
       {
         test: /\.scss$/,

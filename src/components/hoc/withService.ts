@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { ServiceContext } from '../../context/serviceContext';
+import { ServiceContext } from '../../context/service-context';
 
 const withService = (alwaisOnline = false) => (WrappedComponent) =>
 (props) => {
