@@ -1,30 +1,30 @@
 import { nanoid } from 'nanoid';
 
+import { IProfile, IStorage } from 'Store/types/storage-types';
 import {
-    PARAM_UPDATED, PROFILE_ADDED, PROFILE_SELECTED,
-    PROFILE_UPDATED, PROFILE_REMOVED, PROFILES_LOADED
-  } from '../actions/storage';
+  ActionTypes, PARAM_UPDATED, PROFILE_ADDED, PROFILE_SELECTED,
+  PROFILE_UPDATED, PROFILE_REMOVED, PROFILES_LOADED
+} from '../types/storage-actions-types';
 
-function updateStorage(state, { type, payload }) {
-  const { storage } = state;
-  const { selectedIndex, profiles } = storage;
+function storageReducer(state = storageState, action: ActionTypes): IStorage {
+  const { selectedIndex, profiles } = state;
 
-  switch(type) {
+  switch(action.type) {
     case PROFILE_ADDED:
       const { profileName } = profiles[selectedIndex];
       return {
         selectedIndex: 1,
         selectedName: profileName,
-        profiles: [payload.cleanProfile].concat(profiles)
+        profiles: [action.payload.cleanProfile].concat(profiles)
       }
     case PROFILE_SELECTED:
       return {
-        ...storage,
-        selectedIndex: payload.profileIndex,
-        selectedName: profiles[payload.profileIndex].profileName
+        ...state,
+        selectedIndex: action.payload.profileIndex,
+        selectedName: profiles[action.payload.profileIndex].profileName
       }
     case PROFILE_REMOVED:
-      const { profileIndex } = payload;
+      const { profileIndex } = action.payload;
       const newProfiles = profiles.filter((_, index) => index !== profileIndex);
       const newIndex = newProfiles.length - 1 >= profileIndex ? profileIndex : profileIndex - 1;
       return {
@@ -37,39 +37,40 @@ function updateStorage(state, { type, payload }) {
       const updatedProfiles = [...profiles];
       updatedProfiles[currentIndex] = {
         ...updatedProfiles[currentIndex],
-        [payload.paramName]: payload.value
+        [action.payload.paramName]: action.payload.value
       };
       return {
-        ...storage,
+        ...state,
         profiles: updatedProfiles
       };
     case PROFILES_LOADED:
-      const newLoadedIndex = payload.profiles.findIndex(profile =>
+      const newLoadedIndex = action.payload.profiles.findIndex(profile =>
         profile.profileId === profiles[selectedIndex].profileId
       );
       const newSelectedName = newLoadedIndex === -1
-        ? payload.cleanProfile.profileName
-        : payload.profiles[newLoadedIndex].profileName;
+        ? action.payload.cleanProfile.profileName
+        : action.payload.profiles[newLoadedIndex].profileName;
       return {
         selectedIndex: newLoadedIndex + 1,
         selectedName: newSelectedName,
-        profiles: [payload.cleanProfile].concat(payload.profiles)
+        profiles: [action.payload.cleanProfile].concat(action.payload.profiles)
       };
     case PROFILE_UPDATED:
       return {
-        ...storage,
-        selectedName: profiles[payload.profileIndex].profileName
+        ...state,
+        selectedName: profiles[action.payload.profileIndex].profileName
       }
     default:
-      return storage;
+      return state;
   }
 }
 
-export const EMPTY_PROFILE = () => {
-  var date = new Date();
-  var sysNumber = ['FullYear', 'Month', 'Date', 'Hours', 'Minutes', 'Seconds', 'Milliseconds']
-    .map(method => date['get' + method]())
+export const EMPTY_PROFILE = (): IProfile => {
+  const date = new Date();
+  const sysNumber = ['FullYear', 'Month', 'Date', 'Hours', 'Minutes', 'Seconds', 'Milliseconds']
+    .map(method => (date as { [key: string]: any })[`get${method}`]())
     .join('');
+
   return {
     profileId: nanoid(),
     profileName: 'New Profile',
@@ -86,13 +87,11 @@ export const EMPTY_PROFILE = () => {
     bondId: ''
   }
 };
-const date = new Date();
-date.getUTCFullYear();
 
-export const storageInitialStore = {
+export const storageState: IStorage = {
   selectedName: '',
   selectedIndex: 0,
   profiles: [EMPTY_PROFILE()]
 };
 
-export default updateStorage;
+export default storageReducer;

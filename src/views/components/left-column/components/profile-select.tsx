@@ -4,9 +4,16 @@ import InputRow from 'Components/ui/input-row/input-row';
 import SelectRow from 'Components/ui/select-row/select-row';
 import Group from 'Components/layout/group/group';
 import ProfileActions from './profile-actions';
+import { IFields } from 'Views/components/group-rows/group-rows';
 
-function ProfileSelect({ fields, onInputChange, onSelectProfile }) {
-  const inputChange = (label, value) => {
+export interface IProfileSelectProps {
+  fields: IFields;
+  onInputChange: (paramName: string, value: string) => void;
+  onSelectProfile: (profileIndex: number) => void;
+}
+
+function ProfileSelect({ fields, onInputChange, onSelectProfile }: IProfileSelectProps) {
+  const inputChange = (label: string, value: string) => {
     onInputChange(label, value);
   }
 
@@ -15,7 +22,7 @@ function ProfileSelect({ fields, onInputChange, onSelectProfile }) {
       <SelectRow
         label="Выберите профиль"
         idFor="selectProfile"
-        options={fields.selectProfile.options}
+        options={fields.selectProfile.options!}
         index={fields.selectProfile.value}
         onInputChange={onSelectProfile}
       />

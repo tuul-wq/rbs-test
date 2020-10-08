@@ -3,7 +3,7 @@
 const { resolve } = require('./utils');
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: './src/index.tsx',
   output: {
     publicPath: '/',
     path: resolve('/build'),
@@ -25,7 +25,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       },

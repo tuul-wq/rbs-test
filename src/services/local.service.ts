@@ -1,18 +1,23 @@
-class LocalService {
+import { IProfile } from 'Store/types/storage-types';
+import { IStorage } from './api.service';
+
+class LocalService implements IStorage{
+  private storageKey: string;
+
   constructor() {
     this.storageKey = GATEWAY_PROFILES;
   }
 
-  getStorageValue() {
-    const item = localStorage.getItem(this.storageKey);
-    return item ? JSON.parse(item) : [];
+  getStorageValue(): IProfile[] {
+    const profiles = localStorage.getItem(this.storageKey);
+    return profiles ? JSON.parse(profiles) : [] as IProfile[];
   }
 
-  setStorageValue(value) {
-    localStorage.setItem(this.storageKey, JSON.stringify(value));
+  setStorageValue(profiles: IProfile[] = []) {
+    localStorage.setItem(this.storageKey, JSON.stringify(profiles));
   }
 
-  mergeStorages(dbProfiles = []) {
+  mergeStorages(dbProfiles: IProfile[] = []): IProfile[] {
     const backupLs = this.getStorageValue();
     if (!backupLs.length) return dbProfiles;
     if (!dbProfiles.length) return backupLs;
@@ -27,15 +32,15 @@ class LocalService {
     return profiles;
   }
 
-  syncStorages(profiles) {
+  syncStorages(profiles: IProfile[]) {
     this.setStorageValue(profiles);
   }
 
-  async getAllProfiles() {
-    return Promise.resolve(this.getStorageValue());
+  async getAllProfiles(): Promise<IProfile[]> {
+    return this.getStorageValue();
   }
 
-  async updateProfile(profiles) {
+  updateProfile(profiles: IProfile[]) {
     this.setStorageValue(profiles);
   }
 }

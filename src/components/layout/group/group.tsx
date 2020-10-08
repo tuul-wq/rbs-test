@@ -1,7 +1,12 @@
 import React from 'react';
 import './group.scss';
 
-function Group({ legend, children }) {
+interface IGroupProps {
+  legend: string;
+  children: React.ReactNode;
+}
+
+function Group ({ legend, children }: IGroupProps) {
   return (
     <fieldset className="group">
       <legend>{legend}</legend>

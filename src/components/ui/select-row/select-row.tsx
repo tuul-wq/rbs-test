@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './select-row.scss';
 
-function SelectRow({ options, label, idFor, index, onInputChange }) {
-  const onValueSelected = (event) => {
-    onInputChange(parseInt(event.target.value));
+interface ISelectRow {
+  label: string;
+  idFor: string;
+  index: string | number;
+  options: {
+    id: string;
+    name: string;
+  }[];
+  onInputChange: (input: number) => void;
+}
+
+function SelectRow({
+  options, label, idFor, index, onInputChange
+}: ISelectRow) {
+  const onValueSelected = (event: ChangeEvent<HTMLSelectElement>) => {
+    onInputChange(parseInt(event.currentTarget.value));
   }
 
   return (
@@ -16,7 +29,7 @@ function SelectRow({ options, label, idFor, index, onInputChange }) {
         onChange={onValueSelected}
       >
         {
-          options.map((option, index) =>
+          options.map((option, index: number) =>
             <option key={option.id} value={index}>{option.name}</option>
           )
         }

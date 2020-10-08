@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import store from 'Store/store';
 import App from 'Components/common/app/app';
-import RbsService from 'Services/rbs.service';
 import { ServiceContext } from 'Context/service-context';
 import LocalService from 'Services/local.service';
+import RbsService from 'Services/rbs.service';
+import store from 'Store/store';
 import './index.scss';
 
 const services = {

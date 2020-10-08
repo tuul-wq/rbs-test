@@ -1,13 +1,19 @@
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
-import reducers from './reducers';
-import { storageInitialStore } from './reducers/storage';
-import { userInitialStore } from './reducers/user';
+import storageReducer, { storageState } from './reducers/storage-reducer';
+import userReducer, { userState } from './reducers/user-reducer';
 
 const initState = {
-  user: userInitialStore,
-  storage: storageInitialStore
+  user: userState,
+  storage: storageState
 };
 
-export default createStore(reducers, initState, applyMiddleware(thunkMiddleware));
+const reducer = combineReducers({
+  user: userReducer,
+  storage: storageReducer
+});
+
+export type AppState = ReturnType<typeof reducer>;
+
+export default createStore(reducer, initState, applyMiddleware(thunkMiddleware));

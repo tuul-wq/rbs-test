@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators, compose } from 'redux';
+import { connect, ConnectedProps } from 'react-redux';
+import { AnyAction, bindActionCreators, compose, Dispatch } from 'redux';
 
 import Status from './status';
 import Login from './login';
-import withService from 'Components/hoc/withService';
-import { loginUser, logoutUser, resetLoginError } from 'Store/actions/user';
+import withService from 'Components/hoc/with-service';
+import { AppState } from 'Store/store';
+import { IAuth } from 'Services/api.service';
+import { loginUser, logoutUser, resetLoginError } from 'Store/actions/user-actions';
 
-function AuthContainer({ onLogin, onLogout, onErrorReset, ...user}) {
+function AuthContainer({
+  user, onLogin, onLogout, onErrorReset
+}: PropsFromRedux) {
   const [formActive, setFormActive] = useState(false);
 
   const showForm = () => setFormActive(!formActive);
@@ -23,10 +27,12 @@ function AuthContainer({ onLogin, onLogout, onErrorReset, ...user}) {
   }
 
   const statusProps = {
-    ...user,
     showForm,
     onLogout: logOut,
-    displayName: user.isLoggedIn ? `${user.login} (${user.email || 'no email'})` : 'Offline'
+    isLoggedIn: user.isLoggedIn,
+    displayName: user.isLoggedIn
+      ? `${user.login} (${user.email || 'no email'})`
+      : 'Offline'
   }
 
   const loginProps = {
@@ -40,24 +46,22 @@ function AuthContainer({ onLogin, onLogout, onErrorReset, ...user}) {
     : <Status {...statusProps} />
 }
 
-function mapStateToProps({ user }) {
-  return {
-    isLoggedIn: user.isLoggedIn,
-    login: user.login,
-    email: user.email,
-    hasError: user.hasError
-  }
+function mapStateToProps({ user }: AppState) {
+  return { user };
 }
 
-function mapDispatchToProps(dispatch, { service }) {
+function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: { service: IAuth }) {
   return bindActionCreators({
-    onLogout: logoutUser(service),
-    onLogin: loginUser(service),
+    onLogout: logoutUser(ownProps.service),
+    onLogin: loginUser(ownProps.service),
     onErrorReset: resetLoginError
   }, dispatch);
 }
 
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>
+
 export default compose(
   withService(true),
-  connect(mapStateToProps, mapDispatchToProps),
+  connector,
 )(AuthContainer);

@@ -1,14 +1,35 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "module": "CommonJS",
-    "allowJs": true,
-    // "noImplicitAny": true,
+    "baseUrl": ".",
     "outDir": "./build/",
-    "preserveConstEnums": true,
-    "removeComments": true,
+    "strict": true,
+    "module": "ES2020",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
     "sourceMap": true,
-    "target": "ES2020"
+    "noImplicitAny": true,
+    "alwaysStrict": true,
+    "noImplicitThis": true,
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "paths": {
+      "Fonts/*": ["src/assets/fonts/*"],
+      "Images/*": ["src/assets/images/*"],
+      "Styles/*": ["src/assets/styles/*"],
+      "Components/*": ["src/components/*"],
+      "Context/*": ["src/context/*"],
+      "Services/*": ["src/services/*"],
+      "Store/*": ["src/store/*"],
+      "Views/*": ["src/views/*"]
+    }
   },
   "include": ["./src/**/*"],
   "exclude": [

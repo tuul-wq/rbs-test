@@ -1,18 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
-import GroupRows from '../group-rows/group-rows';
-import { updateProfileParam } from 'Store/actions/storage';
+import GroupRows, { IFields } from '../group-rows/group-rows';
+import { updateProfileParam } from 'Store/actions/storage-actions';
+import { AppState } from 'Store/store';
 
-function RightColumn(props) {
+function RightColumn(props: PropsFromRedux) {
   return (
     <GroupRows groupName="Параметры заказа" {...props} />
   )
 }
 
-function mapStateToProps({ storage }) {
+const mapStateToProps = ({ storage }: AppState) => {
   const { selectedIndex, profiles } = storage;
-  const current = profiles.find((_, index) => index === selectedIndex);
+  const current = profiles.find((_, index) => index === selectedIndex) || profiles[0];
   return {
     fields: {
       currency: { label: 'Валюта', value: current.currency },
@@ -23,7 +24,7 @@ function mapStateToProps({ storage }) {
       orderDescription: { label: 'Описание заказа', value: current.orderDescription },
       clientId: { label: 'ID клиента', value: current.clientId },
       bondId: { label: 'ID связки', value: current.bondId }
-    }
+    } as IFields
   }
 }
 
@@ -31,4 +32,7 @@ const mapDispatchToProps = {
   onInputChange: updateProfileParam
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RightColumn);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(RightColumn);

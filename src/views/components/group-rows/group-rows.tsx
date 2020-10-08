@@ -3,8 +3,24 @@ import React from 'react';
 import Group from 'Components/layout/group/group';
 import InputRow from 'Components/ui/input-row/input-row';
 
-function GroupRows({ groupName, fields, onInputChange }) {
-  const inputChange = (label, value) => {
+export interface IFields {
+  [key: string]: {
+    label: string,
+    value: string | number,
+    options?: {
+      id: string;
+      name: string;
+    }[]
+  }
+}
+export interface IGroupRowsProps {
+  groupName: string;
+  fields: IFields;
+  onInputChange: (label: string, value: string) => void;
+}
+
+function GroupRows({ groupName, fields, onInputChange }: IGroupRowsProps) {
+  const inputChange = (label: string, value: string) => {
     onInputChange(label, value);
   }
 

@@ -7,13 +7,19 @@ const webpackBase = require('./webpack.config');
 
 module.exports = merge(webpackBase, {
   mode: 'development',
+  devtool: 'eval-cheap-module-source-map',
   devServer: {
-    contentBase: './dist',
+    https: true,
+    contentBase: './build',
     port: 3000,
     hot: true,
-    proxy: {
-      '/api': 'https://all.rbsdev.com/'
-    }
+    openPage: 'sb-mp3back',
+    historyApiFallback: true,
+    proxy: [{
+      context: ['/sb-mp3back/**'],
+      target: 'https://all.rbsdev.com',
+      secure: false
+    }]
   },
   module: {
     rules: [

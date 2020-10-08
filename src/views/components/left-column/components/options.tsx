@@ -1,18 +1,19 @@
 import React from 'react';
 import { compose } from 'redux';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
-import GroupRows from '../../group-rows/group-rows';
-import withService from 'Components/hoc/withService';
-import { updateProfileParam } from 'Store/actions/storage';
+import { AppState } from 'Store/store';
+import withService from 'Components/hoc/with-service';
+import GroupRows, { IFields } from '../../group-rows/group-rows';
+import { updateProfileParam } from 'Store/actions/storage-actions';
 
-function Options(props) {
+function Options(props: PropsFromRedux) {
   return (
     <GroupRows groupName="Параметры магазина" {...props} />
   )
 }
 
-function mapStateToProps({ storage }) {
+function mapStateToProps({ storage }: AppState) {
   const { selectedIndex, profiles } = storage;
   const current = profiles[selectedIndex];
   return {
@@ -20,7 +21,7 @@ function mapStateToProps({ storage }) {
       systemAddress: { label: 'Адрес системы (используется только для запроса)', value: current.systemAddress },
       userName: { label: 'Имя пользователя магазина', value: current.userName },
       password: { label: 'Пароль магазина', value: current.password }
-    }
+    } as IFields
   }
 }
 
@@ -28,7 +29,10 @@ const mapDispatchToProps = {
   onInputChange: updateProfileParam
 };
 
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
 export default compose(
   withService(),
-  connect(mapStateToProps, mapDispatchToProps)
+  connector
 )(Options);

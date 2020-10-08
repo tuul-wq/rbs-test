@@ -1,7 +1,13 @@
 import React from 'react';
 import './base-button.scss';
 
-function BaseButton({ title, disabled, onClicked }) {
+interface IBaseButtonProps {
+  title: string
+  disabled?: boolean
+  onClicked: () => void
+}
+
+function BaseButton({ title, disabled, onClicked }: IBaseButtonProps) {
   return (
     <button disabled={disabled} type="button" className="base-button" onClick={onClicked}>
       {title}

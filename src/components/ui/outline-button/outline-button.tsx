@@ -3,7 +3,14 @@ import classNames from 'classnames';
 
 import './outline-button.scss';
 
-function OutlineButton({ children, title, type = '', onClicked }) {
+interface IOutlineButtonProps {
+  title?: string
+  type: string
+  children: React.ReactNode
+  onClicked: () => void
+}
+
+function OutlineButton({ title, type, children, onClicked }: IOutlineButtonProps) {
   const buttonClass = classNames({
     'button-outline': true,
     'red': type === 'red',

@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import OutlineButton from 'Components/ui/outline-button/outline-button';
 import './login.scss';
 
-function Login({ hasError, onNoActions, onLogin }) {
+interface ILoginProps {
+  hasError: boolean;
+  onNoActions: () => void;
+  onLogin: (login: string, password: string) => void;
+}
+
+function Login({ hasError, onNoActions, onLogin }: ILoginProps) {
   const [creds, setCreds] = useState({ login: '', password: '' });
 
-  const changeValue = (field) => (event) => {
-    setCreds({ ...creds, [field]: event.target.value });
+  const changeValue = (field: string) => (event: FormEvent<HTMLInputElement>) => {
+    setCreds({ ...creds, [field]: event.currentTarget.value });
   }
 
   const login = () => {
@@ -17,12 +23,12 @@ function Login({ hasError, onNoActions, onLogin }) {
 
   useEffect(() => {
     const timer = setTimeout(onNoActions, 15 * 1000);
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(timer);
+    }
   });
 
-  const inputClass = classNames({
-    'error': hasError
-  });
+  const inputClass = classNames({ 'error': hasError });
 
   return (
     <div className="login">

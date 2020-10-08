@@ -1,22 +1,27 @@
-import APIservice from './api.service';
+import { IProfile } from 'Store/types/storage-types';
+import APIservice, { IAuth, IStorage } from './api.service';
 import LocalService from './local.service';
 
-class RbsService extends APIservice {
+class RbsService extends APIservice implements IAuth, IStorage {
+  private localStorage: LocalService;
+
   constructor() {
     super();
-    this._ls = new LocalService();
+    this.localStorage = new LocalService();
   }
 
   async getAllProfiles() {
-    let dbProfiles = [];
+    const dbProfiles: IProfile[] = [];
     try {
-      const res = await this._post(ENDPOINTS.GET_ALL);
+      const res: ServerStorage = await this._post(ENDPOINTS.GET_ALL);
       const match = res.server_storage.find(ss => ss.key === GATEWAY_PROFILES);
-      dbProfiles = JSON.parse(match.value.replaceAll('&quot;', '"')) || [];
+      if (match) {
+        dbProfiles.push(...JSON.parse(match?.value.replace(/&quot;/g, '""')));
+      }
     } catch (error) {
-      dbProfiles = this._ls.getAllProfiles();
+      dbProfiles.push(...await this.localStorage.getAllProfiles());
     } finally {
-      return this._ls.mergeStorages(dbProfiles);
+      return this.localStorage.mergeStorages(dbProfiles);
     }
   }
 
@@ -24,31 +29,31 @@ class RbsService extends APIservice {
     try {
       await this._post(ENDPOINTS.REMOVE_SINGLE);
     } catch (error) {
-      this._ls.setStorageValue();
+      this.localStorage.setStorageValue([] as IProfile[]);
     }
   }
 
-  async updateProfile(profiles) {
+  async updateProfile(profiles: IProfile[]) {
     try {
       await this._post(ENDPOINTS.UPDATE, {
         body: JSON.stringify({ key: GATEWAY_PROFILES, value: JSON.stringify(profiles) })
       });
     } catch (error) {
-      this._ls.setStorageValue(profiles);
+      this.localStorage.setStorageValue(profiles);
     }
   }
 
-  syncStorages(dbProfiles) {
-    this._ls.syncStorages(dbProfiles);
+  syncStorages(dbProfiles: IProfile[]) {
+    this.localStorage.syncStorages(dbProfiles);
   }
 
-  async login(login, password) {
+  async login(login: string, password: string) {
     try {
       const res = await this._post(ENDPOINTS.LOGIN, {
         headers: {
-          'X-Original-Url': this.originPath + ENDPOINTS.LOGIN
+          // 'X-Original-Url': this.originPath + ENDPOINTS.LOGIN
           // needs 'front' suffix in dev mode
-          // 'X-Original-Url': `https://all.rbsdev.com/sb-mp3front-stg${ENDPOINTS.LOGIN}`
+          'X-Original-Url': `https://all.rbsdev.com/sb-mp3front${ENDPOINTS.LOGIN}`
         },
         body: JSON.stringify({ login, password, language: 'ru' })
       });
@@ -58,10 +63,8 @@ class RbsService extends APIservice {
     }
   }
 
-  async logout() {
-    try {
-      await this._post(ENDPOINTS.LOGOUT);
-    } catch (error) { }
+  logout() {
+    this._post(ENDPOINTS.LOGOUT);
   }
 }
 
@@ -78,6 +81,13 @@ const ENDPOINTS = {
 
   LOGIN: '/auth/cookie/login',
   LOGOUT: `/logout`
+}
+
+type ServerStorage = {
+  server_storage: [{
+    key: string;
+    value: string
+  }]
 }
 
 export default RbsService;

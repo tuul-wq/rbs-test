@@ -4,6 +4,7 @@
       "useBuiltIns": "usage",
       "corejs": "3.6"
     }],
+    "@babel/preset-typescript",
     "@babel/preset-react"
   ]
 }

@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import './input-row.scss';
 
-function InputRow({ label, idFor, value, onInputChange }) {
-  const inputChange = (event) => {
-    onInputChange(idFor, event.target.value);
+interface IInputRowProps {
+  label: string;
+  idFor: string;
+  value: string | number;
+  onInputChange: (id: string, value: string) => void;
+}
+
+function InputRow({ label, idFor, value, onInputChange }: IInputRowProps) {
+  const inputChange = (event: FormEvent<HTMLInputElement>) => {
+    onInputChange(idFor, event.currentTarget.value);
   }
 
   return (
