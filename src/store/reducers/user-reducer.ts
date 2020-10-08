@@ -1,6 +1,6 @@
 import { IUser } from 'Store/types/user-types';
 import {
-  ActionTypes, USER_LOGGED_IN, USER_LOGGED_OUT, USER_ERROR_RESET
+  ActionTypes, USER_LOGGED_IN, USER_LOGGED_OUT, USER_ERROR_RESET, USER_LOGIN_FAIL
 } from '../types/user-actions-types';
 
 function userReducer(state = userState, action: ActionTypes): IUser {
@@ -15,6 +15,11 @@ function userReducer(state = userState, action: ActionTypes): IUser {
     case USER_LOGGED_OUT:
       return {
         ...action.payload.initialState
+      };
+    case USER_LOGIN_FAIL:
+      return {
+        ...state,
+        hasError: true
       };
     case USER_ERROR_RESET:
       return {

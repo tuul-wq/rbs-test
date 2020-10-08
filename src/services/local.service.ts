@@ -8,12 +8,12 @@ class LocalService implements IStorage{
     this.storageKey = GATEWAY_PROFILES;
   }
 
-  getStorageValue(): IProfile[] {
+  private getStorageValue(): IProfile[] {
     const profiles = localStorage.getItem(this.storageKey);
     return profiles ? JSON.parse(profiles) : [] as IProfile[];
   }
 
-  setStorageValue(profiles: IProfile[] = []) {
+  private setStorageValue(profiles: IProfile[] = []) {
     localStorage.setItem(this.storageKey, JSON.stringify(profiles));
   }
 
@@ -32,15 +32,15 @@ class LocalService implements IStorage{
     return profiles;
   }
 
-  syncStorages(profiles: IProfile[]) {
+  syncStorages = (profiles: IProfile[]) => {
     this.setStorageValue(profiles);
   }
 
-  async getAllProfiles(): Promise<IProfile[]> {
+  getAllProfiles = async (): Promise<IProfile[]> => {
     return this.getStorageValue();
   }
 
-  updateProfile(profiles: IProfile[]) {
+  updateProfile = (profiles: IProfile[]) => {
     this.setStorageValue(profiles);
   }
 }

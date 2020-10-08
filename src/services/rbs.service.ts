@@ -10,7 +10,7 @@ class RbsService extends APIservice implements IAuth, IStorage {
     this.localStorage = new LocalService();
   }
 
-  async getAllProfiles() {
+  getAllProfiles = async () => {
     const dbProfiles: IProfile[] = [];
     try {
       const res: ServerStorage = await this._post(ENDPOINTS.GET_ALL);
@@ -25,29 +25,29 @@ class RbsService extends APIservice implements IAuth, IStorage {
     }
   }
 
-  async removeSingleProfile() {
+  removeSingleProfile = async () => {
     try {
       await this._post(ENDPOINTS.REMOVE_SINGLE);
     } catch (error) {
-      this.localStorage.setStorageValue([] as IProfile[]);
+      this.localStorage.updateProfile([] as IProfile[]);
     }
   }
 
-  async updateProfile(profiles: IProfile[]) {
+  updateProfile = async (profiles: IProfile[]) => {
     try {
       await this._post(ENDPOINTS.UPDATE, {
         body: JSON.stringify({ key: GATEWAY_PROFILES, value: JSON.stringify(profiles) })
       });
     } catch (error) {
-      this.localStorage.setStorageValue(profiles);
+      this.localStorage.updateProfile(profiles);
     }
   }
 
-  syncStorages(dbProfiles: IProfile[]) {
+  syncStorages = (dbProfiles: IProfile[]) => {
     this.localStorage.syncStorages(dbProfiles);
   }
 
-  async login(login: string, password: string) {
+  login = async (login: string, password: string) => {
     try {
       const res = await this._post(ENDPOINTS.LOGIN, {
         headers: {
@@ -57,13 +57,13 @@ class RbsService extends APIservice implements IAuth, IStorage {
         },
         body: JSON.stringify({ login, password, language: 'ru' })
       });
-      return { login: res.login, email: res.email, hasError: false };
+      return { hasError: false, login: res.login, email: res.email };
     } catch (error) {
-      return { login: '', email: '', hasError: true };
+      return { hasError: true };
     }
   }
 
-  logout() {
+  logout = () => {
     this._post(ENDPOINTS.LOGOUT);
   }
 }

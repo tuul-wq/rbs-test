@@ -1,19 +1,22 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 
+import saga from './sagas';
 import storageReducer, { storageState } from './reducers/storage-reducer';
 import userReducer, { userState } from './reducers/user-reducer';
-
-const initState = {
-  user: userState,
-  storage: storageState
-};
 
 const reducer = combineReducers({
   user: userReducer,
   storage: storageReducer
 });
-
 export type AppState = ReturnType<typeof reducer>;
 
-export default createStore(reducer, initState, applyMiddleware(thunkMiddleware));
+const initState: AppState = {
+  user: userState,
+  storage: storageState
+};
+
+const sagaMiddleware = createSagaMiddleware();
+
+export default createStore(reducer, initState, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(saga);

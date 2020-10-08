@@ -7,8 +7,8 @@ import './left-column.scss';
 function LeftColumn() {
   return (
     <div className="left-column">
-      <ProfileSelect groupName="Сохраненные параметры" />
-      <Options groupName="Параметры магазина" />
+      <ProfileSelect />
+      <Options />
     </div>
   )
 }

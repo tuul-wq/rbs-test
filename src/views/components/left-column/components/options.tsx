@@ -1,9 +1,7 @@
 import React from 'react';
-import { compose } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 
 import { AppState } from 'Store/store';
-import withService from 'Components/hoc/with-service';
 import GroupRows, { IFields } from '../../group-rows/group-rows';
 import { updateProfileParam } from 'Store/actions/storage-actions';
 
@@ -32,7 +30,4 @@ const mapDispatchToProps = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default compose(
-  withService(),
-  connector
-)(Options);
+export default connector(Options);
